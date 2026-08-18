@@ -78,12 +78,56 @@
   #toTop:hover{border-color:#00e5ff;transform:translateY(-4px)}
   #toTop svg{width:18px;height:18px}
 
-  /* NAVBAR */
-  #navbar{transform:translateY(-150%)}
-  .nav-link{position:relative}
-  .nav-link::after{content:"";position:absolute;left:0;bottom:-6px;width:0;height:2px;background:#00e5ff;transition:.3s}
-  .nav-link:hover::after,.nav-link.active::after{width:100%}
-  .nav-link.active{color:#00e5ff}
+/* NAVBAR */
+#navbar {
+    transform: translateY(-150%);
+}
+
+.nav-link {
+    position: relative;
+    display: inline-block;
+    color: inherit;
+}
+
+/* Underline */
+.nav-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    width: 0;
+    height: 2px;
+    background: #00e5ff;
+    transition: width 0.3s ease;
+}
+
+/* Hover + Active */
+.nav-link:hover::after,
+.nav-link.active::after {
+    width: 100%;
+}
+
+.nav-link.active {
+    color: #00e5ff !important;
+}
+
+
+/* MOBILE */
+@media (max-width: 768px) {
+
+    .nav-link::after {
+        bottom: -3px;
+        height: 2px;
+    }
+
+    .nav-link.active::after {
+        width: 100% !important;
+    }
+
+    .nav-link.active {
+        color: #00e5ff !important;
+    }
+}
 
   /* HERO */
   .hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:70px 70px;mask-image:linear-gradient(to bottom,black,transparent 92%);-webkit-mask-image:linear-gradient(to bottom,black,transparent 92%);pointer-events:none;z-index:0}
@@ -132,6 +176,69 @@
   .project-number{font-family:'Space Grotesk';font-size:5.5rem;font-weight:700;color:rgba(255,255,255,.12)}
   .view-tag{opacity:0;transform:translateY(6px);transition:.35s}
   .project-card:hover .view-tag{opacity:1;transform:none}
+
+
+  .project-number-animated {
+    width: 65px;
+    height: 65px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    /* Squircle shape */
+    border-radius: 14px;
+
+    /* Glass effect */
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(8px);
+
+    /* Cyan border */
+    border: 1px solid rgba(34, 211, 238, 0.7);
+
+    color: #67e8f9;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 2px;
+
+    /* Glow */
+    box-shadow:
+        0 0 10px rgba(34, 211, 238, 0.25),
+        inset 0 0 10px rgba(34, 211, 238, 0.08);
+
+    /* Animation */
+    animation: numberFloat 3s ease-in-out infinite;
+
+    transition: all 0.4s ease;
+}
+
+/* Floating animation */
+@keyframes numberFloat {
+    0%, 100% {
+        transform: translateY(0) rotate(0deg);
+        box-shadow:
+            0 0 10px rgba(34, 211, 238, 0.25),
+            inset 0 0 10px rgba(34, 211, 238, 0.08);
+    }
+
+    50% {
+        transform: translateY(-4px) rotate(1deg);
+        box-shadow:
+            0 0 22px rgba(34, 211, 238, 0.5),
+            inset 0 0 14px rgba(34, 211, 238, 0.15);
+    }
+}
+
+/* Hover */
+.project-card:hover .project-number-animated {
+    transform: scale(1.12) rotate(-3deg);
+    border-color: #67e8f9;
+    color: white;
+
+    box-shadow:
+        0 0 25px rgba(34, 211, 238, 0.7),
+        inset 0 0 15px rgba(34, 211, 238, 0.15);
+}
 
   /* MARQUEE */
   .marquee{overflow:hidden;white-space:nowrap;border-top:1px solid rgba(255,255,255,.1);border-bottom:1px solid rgba(255,255,255,.1)}
@@ -368,7 +475,18 @@
             <div class="skill-item py-7 flex items-center justify-between">
               <div class="flex items-center gap-6">
                 <span class="text-gray-600 font-mono text-sm">02</span>
-                <span class="skill-name font-display text-3xl md:text-5xl transition">HTML / CSS</span>
+                <span class="skill-name font-display text-3xl md:text-5xl transition">Django</span>
+              </div>
+              <div class="flex items-center gap-4">
+                <span class="text-gray-500 text-sm hidden sm:block">Backend</span>
+                <span class="skill-arrow text-accent">↗</span>
+              </div>
+            </div>
+
+            <div class="skill-item py-7 flex items-center justify-between">
+              <div class="flex items-center gap-6">
+                <span class="text-gray-600 font-mono text-sm">03</span>
+                <span class="skill-name font-display text-3xl md:text-5xl transition">Html / CSS</span>
               </div>
               <div class="flex items-center gap-4">
                 <span class="text-gray-500 text-sm hidden sm:block">Frontend</span>
@@ -378,8 +496,8 @@
 
             <div class="skill-item py-7 flex items-center justify-between">
               <div class="flex items-center gap-6">
-                <span class="text-gray-600 font-mono text-sm">03</span>
-                <span class="skill-name font-display text-3xl md:text-5xl transition">JavaScript</span>
+                <span class="text-gray-600 font-mono text-sm">04</span>
+                <span class="skill-name font-display text-3xl md:text-5xl transition">Javascript</span>
               </div>
               <div class="flex items-center gap-4">
                 <span class="text-gray-500 text-sm hidden sm:block">Interaction</span>
@@ -389,22 +507,11 @@
 
             <div class="skill-item py-7 flex items-center justify-between">
               <div class="flex items-center gap-6">
-                <span class="text-gray-600 font-mono text-sm">04</span>
+                <span class="text-gray-600 font-mono text-sm">05</span>
                 <span class="skill-name font-display text-3xl md:text-5xl transition">MySQL</span>
               </div>
               <div class="flex items-center gap-4">
                 <span class="text-gray-500 text-sm hidden sm:block">Database</span>
-                <span class="skill-arrow text-accent">↗</span>
-              </div>
-            </div>
-
-            <div class="skill-item py-7 flex items-center justify-between">
-              <div class="flex items-center gap-6">
-                <span class="text-gray-600 font-mono text-sm">05</span>
-                <span class="skill-name font-display text-3xl md:text-5xl transition">PHP</span>
-              </div>
-              <div class="flex items-center gap-4">
-                <span class="text-gray-500 text-sm hidden sm:block">Web Backend</span>
                 <span class="skill-arrow text-accent">↗</span>
               </div>
             </div>
@@ -524,25 +631,37 @@
           <div class="grid md:grid-cols-2 gap-7 mt-16">
 
             <div class="project-card project-reveal" data-project="vet">
-              <div class="project-image bg-gradient-to-br from-cyan-950 via-[#071014] to-black flex items-center justify-center">
-                <span class="text-8xl opacity-70">🐾</span>
-              </div>
+                <div class="project-image overflow-hidden">
+                    <img src="./images/veterinary2.png"
+                        alt="Veterinary Appointment System"
+                        class="w-full h-full object-cover blur-[1.5px] scale-[1.01]">
+                </div>
               <div class="project-overlay"></div>
-              <div class="absolute top-5 left-6"><span class="project-number">01</span></div>
+                <div class="absolute top-5 left-6 z-20">
+                    <span class="project-number project-number-animated">
+                        01
+                    </span>
+                </div>
               <div class="absolute bottom-0 left-0 right-0 p-7">
                 <p class="text-accent text-xs uppercase tracking-widest">PHP / MySQL / JS</p>
                 <h3 class="font-display text-3xl font-semibold mt-2">Veterinary Appointment System</h3>
                 <p class="text-gray-400 text-sm mt-3">Online veterinary appointment and service management platform.</p>
-                <span class="view-tag inline-block mt-4 text-xs tracking-widest text-accent border-b border-accent pb-1">VIEW PROJECT ↗</span>
+                <a href="https://github.com/msnandhan516-coder/Online-Veterinary-Appointment-System." target="_blank"rel="noopener noreferrer"class="view-tag inline-block mt-4 text-xs tracking-widest text-accent border-b border-accent pb-1"> VIEW PROJECT ↗</a>
               </div>
             </div>
 
             <div class="project-card project-reveal" data-project="shop">
-              <div class="project-image bg-gradient-to-br from-blue-950 via-[#07101c] to-black flex items-center justify-center">
-                <span class="text-8xl opacity-70">🛒</span>
-              </div>
+                <div class="project-image overflow-hidden">
+                    <img src="./images/shopping_system.jpg"
+                        alt="Veterinary Appointment System"
+                        class="w-full h-full object-cover blur-[1.5px] scale-[1.01]"">
+                </div>
               <div class="project-overlay"></div>
-              <div class="absolute top-5 left-6"><span class="project-number">02</span></div>
+                <div class="absolute top-5 left-6 z-20">
+                    <span class="project-number project-number-animated">
+                        02
+                    </span>
+                </div>
               <div class="absolute bottom-0 left-0 right-0 p-7">
                 <p class="text-accent text-xs uppercase tracking-widest">Python / MySQL</p>
                 <h3 class="font-display text-3xl font-semibold mt-2">Online Shopping System</h3>
@@ -552,11 +671,17 @@
             </div>
 
             <div class="project-card project-reveal" data-project="marvel">
-              <div class="project-image bg-gradient-to-br from-purple-950 via-[#100719] to-black flex items-center justify-center">
-                <span class="text-8xl opacity-70">🎬</span>
-              </div>
+                <div class="project-image overflow-hidden">
+                    <img src="./images/marvel_website.jpg"
+                        alt="Veterinary Appointment System"
+                        class="w-full h-full object-cover blur-[1.5px] scale-[1.01]"">
+                </div>
               <div class="project-overlay"></div>
-              <div class="absolute top-5 left-6"><span class="project-number">03</span></div>
+                <div class="absolute top-5 left-6 z-20">
+                    <span class="project-number project-number-animated">
+                        03
+                    </span>
+                </div>
               <div class="absolute bottom-0 left-0 right-0 p-7">
                 <p class="text-accent text-xs uppercase tracking-widest">HTML / CSS / JS</p>
                 <h3 class="font-display text-3xl font-semibold mt-2">Marvel Cinematic Website</h3>
@@ -566,11 +691,17 @@
             </div>
 
             <div class="project-card project-reveal" data-project="python">
-              <div class="project-image bg-gradient-to-br from-green-950 via-[#06120a] to-black flex items-center justify-center">
-                <span class="text-8xl opacity-70">🐍</span>
-              </div>
+                <div class="project-image overflow-hidden">
+                    <img src="./images/python_apps.jpg"
+                        alt="Veterinary Appointment System"
+                        class="w-full h-full object-cover blur-[1.5px] scale-[1.01]"">
+                </div>
               <div class="project-overlay"></div>
-              <div class="absolute top-5 left-6"><span class="project-number">04</span></div>
+                <div class="absolute top-5 left-6 z-20">
+                    <span class="project-number project-number-animated">
+                        04
+                    </span>
+                </div>
               <div class="absolute bottom-0 left-0 right-0 p-7">
                 <p class="text-accent text-xs uppercase tracking-widest">Python / OOP / SQL</p>
                 <h3 class="font-display text-3xl font-semibold mt-2">Python Applications</h3>
