@@ -1,0 +1,2205 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Nandhan M S | Python Full Stack Developer</title>
+
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+          rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['DM Sans', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif']
+                    },
+
+                    colors: {
+                        accent: '#00e5ff'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            background: #050505;
+            color: white;
+            font-family: 'DM Sans', sans-serif;
+            overflow-x: hidden;
+        }
+
+        ::selection {
+            background: #00e5ff;
+            color: #000;
+        }
+
+        /* =========================
+           CUSTOM CURSOR
+        ========================= */
+
+        .cursor {
+            position: fixed;
+            width: 12px;
+            height: 12px;
+            background: #00e5ff;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            mix-blend-mode: difference;
+        }
+
+        .cursor-ring {
+            position: fixed;
+            width: 42px;
+            height: 42px;
+            border: 1px solid rgba(0,229,255,.5);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9998;
+            transform: translate(-50%, -50%);
+        }
+
+        @media(max-width: 768px) {
+            .cursor,
+            .cursor-ring {
+                display: none;
+            }
+        }
+
+
+        /* =========================
+           LOADER
+        ========================= */
+
+        #loader {
+            position: fixed;
+            inset: 0;
+            background: #050505;
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .loader-number {
+            font-family: 'Space Grotesk';
+            font-size: clamp(4rem, 12vw, 10rem);
+            font-weight: 700;
+        }
+
+
+        /* =========================
+           NAVBAR
+        ========================= */
+
+        #navbar {
+            transform: translateY(-100%);
+        }
+
+        .nav-link {
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -6px;
+            width: 0;
+            height: 2px;
+            background: #00e5ff;
+            transition: .3s;
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+
+        /* =========================
+           HERO
+        ========================= */
+
+        .hero-grid {
+            background-image:
+                linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+
+            background-size: 70px 70px;
+        }
+
+        .hero-glow {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            background: rgba(0,229,255,.09);
+            filter: blur(120px);
+            pointer-events: none;
+        }
+
+        .hero-title {
+            font-family: 'Space Grotesk';
+            font-size: clamp(4rem, 11vw, 11rem);
+            font-weight: 700;
+            line-height: .86;
+            letter-spacing: -.07em;
+        }
+
+        .hero-word {
+            display: block;
+            overflow: hidden;
+        }
+
+        .hero-word span {
+            display: inline-block;
+            transform: translateY(120%);
+        }
+
+
+        /* =========================
+           GENERAL
+        ========================= */
+
+        .section {
+            position: relative;
+        }
+
+        .section-number {
+            font-family: 'Space Grotesk';
+            color: rgba(255,255,255,.15);
+            font-size: 7rem;
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        .outline-text {
+            color: transparent;
+            -webkit-text-stroke: 1px rgba(255,255,255,.3);
+        }
+
+
+        /* =========================
+           ABOUT
+        ========================= */
+
+        .about-card {
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(255,255,255,.07),
+                    rgba(255,255,255,.02)
+                );
+
+            border: 1px solid rgba(255,255,255,.08);
+            backdrop-filter: blur(20px);
+        }
+
+
+        /* =========================
+           SKILLS
+        ========================= */
+
+        .skill-item {
+            border-top: 1px solid rgba(255,255,255,.15);
+            transition: .4s;
+        }
+
+        .skill-item:last-child {
+            border-bottom: 1px solid rgba(255,255,255,.15);
+        }
+
+        .skill-item:hover {
+            padding-left: 25px;
+            color: #00e5ff;
+        }
+
+
+        /* =========================
+           PROJECTS
+        ========================= */
+
+        .project-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 25px;
+            background: #0c0c0c;
+            border: 1px solid rgba(255,255,255,.08);
+        }
+
+        .project-image {
+            height: 420px;
+            transition: transform .8s cubic-bezier(.2,.8,.2,1);
+        }
+
+        .project-card:hover .project-image {
+            transform: scale(1.08);
+        }
+
+        .project-overlay {
+            position: absolute;
+            inset: 0;
+
+            background:
+                linear-gradient(
+                    to top,
+                    rgba(0,0,0,.95),
+                    transparent 65%
+                );
+        }
+
+        .project-number {
+            font-family: 'Space Grotesk';
+            font-size: 6rem;
+            font-weight: 700;
+            color: rgba(255,255,255,.12);
+        }
+
+
+        /* =========================
+           MARQUEE
+        ========================= */
+
+        .marquee {
+            overflow: hidden;
+            white-space: nowrap;
+            border-top: 1px solid rgba(255,255,255,.1);
+            border-bottom: 1px solid rgba(255,255,255,.1);
+        }
+
+        .marquee-content {
+            display: inline-block;
+            animation: marquee 18s linear infinite;
+        }
+
+        @keyframes marquee {
+
+            from {
+                transform: translateX(0);
+            }
+
+            to {
+                transform: translateX(-50%);
+            }
+
+        }
+
+
+        /* =========================
+           CONTACT
+        ========================= */
+
+        .contact-title {
+            font-family: 'Space Grotesk';
+            font-size: clamp(4rem, 10vw, 10rem);
+            line-height: .9;
+            letter-spacing: -.06em;
+        }
+
+        .magnetic {
+            display: inline-flex;
+            transition: transform .3s ease;
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media(max-width: 768px) {
+
+            .hero-title {
+                font-size: 4rem;
+            }
+
+            .section-number {
+                font-size: 4rem;
+            }
+
+            .project-image {
+                height: 300px;
+            }
+
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+
+<!-- ==========================================
+     LOADER
+========================================== -->
+
+<div id="loader">
+
+    <div class="loader-number">
+        <span id="loadPercent">0</span>%
+    </div>
+
+</div>
+
+
+<!-- ==========================================
+     CURSOR
+========================================== -->
+
+<div class="cursor"></div>
+<div class="cursor-ring"></div>
+
+
+<!-- ==========================================
+     NAVBAR
+========================================== -->
+
+<nav id="navbar"
+     class="fixed top-0 left-0 w-full z-50
+            bg-black/60 backdrop-blur-xl
+            border-b border-white/10">
+
+    <div class="max-w-7xl mx-auto
+                px-6 py-5
+                flex items-center
+                justify-between">
+
+
+        <!-- LOGO -->
+
+        <a href="#home"
+           class="font-display font-bold text-2xl">
+
+            NANDHAN<span class="text-accent">.</span>
+
+        </a>
+
+
+        <!-- DESKTOP -->
+
+        <div class="hidden md:flex
+                    items-center gap-10
+                    text-sm">
+
+            <a href="#home"
+               class="nav-link active">
+
+                Home
+
+            </a>
+
+            <a href="#about"
+               class="nav-link">
+
+                About
+
+            </a>
+
+            <a href="#skills"
+               class="nav-link">
+
+                Skills
+
+            </a>
+
+            <a href="#projects"
+               class="nav-link">
+
+                Projects
+
+            </a>
+
+            <a href="#contact"
+               class="nav-link">
+
+                Contact
+
+            </a>
+
+        </div>
+
+
+        <!-- STATUS -->
+
+        <div class="hidden md:flex
+                    items-center gap-2
+                    text-xs text-gray-400">
+
+            <span class="w-2 h-2
+                         bg-accent
+                         rounded-full
+                         animate-pulse"></span>
+
+            Available for work
+
+        </div>
+
+
+        <!-- MOBILE -->
+
+        <button id="menuBtn"
+                class="md:hidden text-xl">
+
+            ☰
+
+        </button>
+
+    </div>
+
+
+    <!-- MOBILE MENU -->
+
+    <div id="mobileMenu"
+         class="hidden
+                md:hidden
+                bg-black
+                px-6 pb-6">
+
+        <a href="#home"
+           class="block py-4 border-b border-white/10">
+
+            Home
+
+        </a>
+
+        <a href="#about"
+           class="block py-4 border-b border-white/10">
+
+            About
+
+        </a>
+
+        <a href="#skills"
+           class="block py-4 border-b border-white/10">
+
+            Skills
+
+        </a>
+
+        <a href="#projects"
+           class="block py-4 border-b border-white/10">
+
+            Projects
+
+        </a>
+
+        <a href="#contact"
+           class="block py-4">
+
+            Contact
+
+        </a>
+
+    </div>
+
+</nav>
+
+
+
+<!-- ==========================================
+     HERO
+========================================== -->
+
+<section id="home"
+         class="section
+                hero-grid
+                min-h-screen
+                flex items-center
+                relative overflow-hidden">
+
+
+    <div class="hero-glow
+                top-20 right-[-200px]"></div>
+
+
+    <div class="max-w-7xl
+                mx-auto
+                px-6
+                w-full
+                pt-24">
+
+
+        <div class="max-w-6xl">
+
+
+            <!-- SMALL TEXT -->
+
+            <div class="hero-small
+                        flex items-center gap-3
+                        mb-8">
+
+                <span class="w-12 h-[1px]
+                             bg-accent"></span>
+
+                <span class="uppercase
+                             tracking-[5px]
+                             text-xs
+                             text-gray-400">
+
+                    Python Full Stack Developer
+
+                </span>
+
+            </div>
+
+
+            <!-- TITLE -->
+
+            <h1 class="hero-title">
+
+                <span class="hero-word">
+                    <span>NANDHAN</span>
+                </span>
+
+                <span class="hero-word">
+                    <span class="text-accent">M S</span>
+                </span>
+
+            </h1>
+
+
+            <!-- DESCRIPTION -->
+
+            <p class="hero-description
+                      max-w-xl
+                      text-gray-400
+                      text-lg
+                      leading-relaxed
+                      mt-10">
+
+                I build modern web applications,
+                turning ideas into clean,
+                functional and engaging digital
+                experiences.
+
+            </p>
+
+
+            <!-- BUTTONS -->
+
+            <div class="hero-buttons
+                        flex flex-wrap
+                        gap-4 mt-9">
+
+
+                <a href="#projects"
+                   class="magnetic
+                          bg-accent
+                          text-black
+                          px-8 py-4
+                          rounded-full
+                          font-semibold">
+
+                    Explore My Work
+
+                </a>
+
+
+                <a href="#contact"
+                   class="magnetic
+                          border border-white/20
+                          px-8 py-4
+                          rounded-full
+                          hover:border-accent
+                          hover:text-accent
+                          transition">
+
+                    Let's Talk
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- SCROLL -->
+
+        <div class="absolute
+                    bottom-10
+                    left-6
+                    flex items-center
+                    gap-4
+                    text-xs
+                    text-gray-500">
+
+            <div class="w-10 h-16
+                        border border-white/20
+                        rounded-full
+                        flex justify-center
+                        pt-3">
+
+                <div class="scroll-dot
+                            w-1 h-2
+                            bg-accent
+                            rounded-full"></div>
+
+            </div>
+
+            Scroll to explore
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ==========================================
+     MARQUEE
+========================================== -->
+
+<div class="marquee py-6">
+
+    <div class="marquee-content
+                font-display
+                text-4xl
+                uppercase
+                tracking-wider">
+
+        Python • Full Stack • Web Development •
+        MySQL • JavaScript • PHP • Python •
+        Full Stack • Web Development • MySQL •
+        JavaScript • PHP •
+
+    </div>
+
+</div>
+
+
+
+<!-- ==========================================
+     ABOUT
+========================================== -->
+
+<section id="about"
+         class="section py-32">
+
+
+    <div class="max-w-7xl
+                mx-auto
+                px-6">
+
+
+        <div class="grid lg:grid-cols-12
+                    gap-10">
+
+
+            <!-- NUMBER -->
+
+            <div class="lg:col-span-2">
+
+                <div class="section-number">
+                    01
+                </div>
+
+            </div>
+
+
+            <!-- CONTENT -->
+
+            <div class="lg:col-span-10">
+
+
+                <p class="section-label
+                          text-accent
+                          uppercase
+                          tracking-[5px]
+                          text-sm">
+
+                    About Me
+
+                </p>
+
+
+                <h2 class="about-heading
+                           font-display
+                           text-5xl md:text-7xl
+                           font-semibold
+                           leading-tight
+                           mt-5
+                           max-w-5xl">
+
+                    I create digital
+                    experiences that
+                    <span class="text-accent">
+                        work.
+                    </span>
+
+                </h2>
+
+
+                <div class="grid md:grid-cols-2
+                            gap-10 mt-14">
+
+
+                    <div class="about-text">
+
+                        <p class="text-gray-400
+                                  text-lg
+                                  leading-relaxed">
+
+                            I'm a Python Full Stack Developer
+                            focused on building practical,
+                            responsive and user-friendly
+                            web applications.
+
+                        </p>
+
+                        <p class="text-gray-500
+                                  leading-relaxed
+                                  mt-6">
+
+                            I enjoy working across both frontend
+                            and backend development, from designing
+                            interfaces to connecting applications
+                            with databases.
+
+                        </p>
+
+                    </div>
+
+
+                    <div class="about-card
+                                rounded-3xl
+                                p-8">
+
+                        <p class="text-gray-500 text-sm">
+                            Currently focused on
+                        </p>
+
+                        <h3 class="font-display
+                                   text-3xl
+                                   mt-3">
+
+                            Full Stack Development
+
+                        </h3>
+
+
+                        <div class="mt-8 space-y-4">
+
+                            <div class="flex justify-between
+                                        border-b border-white/10
+                                        pb-3">
+
+                                <span class="text-gray-500">
+                                    Frontend
+                                </span>
+
+                                <span>
+                                    HTML / CSS / JS
+                                </span>
+
+                            </div>
+
+
+                            <div class="flex justify-between
+                                        border-b border-white/10
+                                        pb-3">
+
+                                <span class="text-gray-500">
+                                    Backend
+                                </span>
+
+                                <span>
+                                    Python / PHP
+                                </span>
+
+                            </div>
+
+
+                            <div class="flex justify-between">
+
+                                <span class="text-gray-500">
+                                    Database
+                                </span>
+
+                                <span>
+                                    MySQL
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ==========================================
+     SKILLS
+========================================== -->
+
+<section id="skills"
+         class="section
+                py-32
+                bg-[#080808]">
+
+
+    <div class="max-w-7xl
+                mx-auto
+                px-6">
+
+
+        <div class="grid lg:grid-cols-12
+                    gap-10">
+
+
+            <div class="lg:col-span-2">
+
+                <div class="section-number">
+                    02
+                </div>
+
+            </div>
+
+
+            <div class="lg:col-span-10">
+
+
+                <p class="text-accent
+                          uppercase
+                          tracking-[5px]
+                          text-sm">
+
+                    Skills
+
+                </p>
+
+
+                <h2 class="skills-heading
+                           font-display
+                           text-5xl md:text-7xl
+                           font-semibold
+                           mt-5">
+
+                    My Toolkit
+
+                </h2>
+
+
+                <div class="mt-16">
+
+
+                    <div class="skill-item
+                                py-7
+                                flex
+                                items-center
+                                justify-between">
+
+                        <div class="flex items-center gap-6">
+
+                            <span class="text-gray-600">
+                                01
+                            </span>
+
+                            <span class="font-display
+                                         text-3xl md:text-5xl">
+
+                                Python
+
+                            </span>
+
+                        </div>
+
+                        <span class="text-gray-500">
+                            Backend / OOP
+                        </span>
+
+                    </div>
+
+
+                    <div class="skill-item
+                                py-7
+                                flex
+                                items-center
+                                justify-between">
+
+                        <div class="flex items-center gap-6">
+
+                            <span class="text-gray-600">
+                                02
+                            </span>
+
+                            <span class="font-display
+                                         text-3xl md:text-5xl">
+
+                                HTML / CSS
+
+                            </span>
+
+                        </div>
+
+                        <span class="text-gray-500">
+                            Frontend
+                        </span>
+
+                    </div>
+
+
+                    <div class="skill-item
+                                py-7
+                                flex
+                                items-center
+                                justify-between">
+
+                        <div class="flex items-center gap-6">
+
+                            <span class="text-gray-600">
+                                03
+                            </span>
+
+                            <span class="font-display
+                                         text-3xl md:text-5xl">
+
+                                JavaScript
+
+                            </span>
+
+                        </div>
+
+                        <span class="text-gray-500">
+                            Interaction
+                        </span>
+
+                    </div>
+
+
+                    <div class="skill-item
+                                py-7
+                                flex
+                                items-center
+                                justify-between">
+
+                        <div class="flex items-center gap-6">
+
+                            <span class="text-gray-600">
+                                04
+                            </span>
+
+                            <span class="font-display
+                                         text-3xl md:text-5xl">
+
+                                MySQL
+
+                            </span>
+
+                        </div>
+
+                        <span class="text-gray-500">
+                            Database
+                        </span>
+
+                    </div>
+
+
+                    <div class="skill-item
+                                py-7
+                                flex
+                                items-center
+                                justify-between">
+
+                        <div class="flex items-center gap-6">
+
+                            <span class="text-gray-600">
+                                05
+                            </span>
+
+                            <span class="font-display
+                                         text-3xl md:text-5xl">
+
+                                PHP
+
+                            </span>
+
+                        </div>
+
+                        <span class="text-gray-500">
+                            Web Backend
+                        </span>
+
+                    </div>
+
+
+                    <div class="skill-item
+                                py-7
+                                flex
+                                items-center
+                                justify-between">
+
+                        <div class="flex items-center gap-6">
+
+                            <span class="text-gray-600">
+                                06
+                            </span>
+
+                            <span class="font-display
+                                         text-3xl md:text-5xl">
+
+                                Tailwind CSS
+
+                            </span>
+
+                        </div>
+
+                        <span class="text-gray-500">
+                            UI Design
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ==========================================
+     PROJECTS
+========================================== -->
+
+<section id="projects"
+         class="section py-32">
+
+
+    <div class="max-w-7xl
+                mx-auto
+                px-6">
+
+
+        <div class="grid lg:grid-cols-12
+                    gap-10">
+
+
+            <div class="lg:col-span-2">
+
+                <div class="section-number">
+                    03
+                </div>
+
+            </div>
+
+
+            <div class="lg:col-span-10">
+
+
+                <p class="text-accent
+                          uppercase
+                          tracking-[5px]
+                          text-sm">
+
+                    Selected Work
+
+                </p>
+
+
+                <h2 class="projects-heading
+                           font-display
+                           text-5xl md:text-7xl
+                           font-semibold
+                           mt-5">
+
+                    Things I've Built
+
+                </h2>
+
+
+                <div class="grid md:grid-cols-2
+                            gap-7 mt-16">
+
+
+                    <!-- PROJECT 1 -->
+
+                    <div class="project-card
+                                project-reveal">
+
+                        <div class="project-image
+                                    bg-gradient-to-br
+                                    from-cyan-950
+                                    via-[#071014]
+                                    to-black
+                                    flex items-center
+                                    justify-center">
+
+                            <span class="text-8xl
+                                         opacity-70">
+
+                                🐾
+
+                            </span>
+
+                        </div>
+
+                        <div class="project-overlay"></div>
+
+
+                        <div class="absolute
+                                    top-5
+                                    left-6">
+
+                            <span class="project-number">
+                                01
+                            </span>
+
+                        </div>
+
+
+                        <div class="absolute
+                                    bottom-0
+                                    left-0
+                                    right-0
+                                    p-7">
+
+                            <p class="text-accent
+                                      text-xs
+                                      uppercase
+                                      tracking-widest">
+
+                                PHP / MySQL
+
+                            </p>
+
+                            <h3 class="font-display
+                                       text-3xl
+                                       font-semibold
+                                       mt-2">
+
+                                Veterinary
+                                Appointment System
+
+                            </h3>
+
+                            <p class="text-gray-400
+                                      text-sm
+                                      mt-3">
+
+                                Online veterinary appointment
+                                management system.
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- PROJECT 2 -->
+
+                    <div class="project-card
+                                project-reveal">
+
+                        <div class="project-image
+                                    bg-gradient-to-br
+                                    from-blue-950
+                                    via-[#07101c]
+                                    to-black
+                                    flex items-center
+                                    justify-center">
+
+                            <span class="text-8xl
+                                         opacity-70">
+
+                                🛒
+
+                            </span>
+
+                        </div>
+
+                        <div class="project-overlay"></div>
+
+
+                        <div class="absolute
+                                    top-5
+                                    left-6">
+
+                            <span class="project-number">
+                                02
+                            </span>
+
+                        </div>
+
+
+                        <div class="absolute
+                                    bottom-0
+                                    left-0
+                                    right-0
+                                    p-7">
+
+                            <p class="text-accent
+                                      text-xs
+                                      uppercase
+                                      tracking-widest">
+
+                                Python / MySQL
+
+                            </p>
+
+                            <h3 class="font-display
+                                       text-3xl
+                                       font-semibold
+                                       mt-2">
+
+                                Online Shopping System
+
+                            </h3>
+
+                            <p class="text-gray-400
+                                      text-sm
+                                      mt-3">
+
+                                Menu-driven shopping application
+                                with database connectivity.
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- PROJECT 3 -->
+
+                    <div class="project-card
+                                project-reveal">
+
+                        <div class="project-image
+                                    bg-gradient-to-br
+                                    from-purple-950
+                                    via-[#100719]
+                                    to-black
+                                    flex items-center
+                                    justify-center">
+
+                            <span class="text-8xl
+                                         opacity-70">
+
+                                🎬
+
+                            </span>
+
+                        </div>
+
+                        <div class="project-overlay"></div>
+
+
+                        <div class="absolute
+                                    top-5
+                                    left-6">
+
+                            <span class="project-number">
+                                03
+                            </span>
+
+                        </div>
+
+
+                        <div class="absolute
+                                    bottom-0
+                                    left-0
+                                    right-0
+                                    p-7">
+
+                            <p class="text-accent
+                                      text-xs
+                                      uppercase
+                                      tracking-widest">
+
+                                HTML / Tailwind / JS
+
+                            </p>
+
+                            <h3 class="font-display
+                                       text-3xl
+                                       font-semibold
+                                       mt-2">
+
+                                Marvel Website
+
+                            </h3>
+
+                            <p class="text-gray-400
+                                      text-sm
+                                      mt-3">
+
+                                Cinematic Marvel-inspired
+                                responsive website.
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- PROJECT 4 -->
+
+                    <div class="project-card
+                                project-reveal">
+
+                        <div class="project-image
+                                    bg-gradient-to-br
+                                    from-green-950
+                                    via-[#06120a]
+                                    to-black
+                                    flex items-center
+                                    justify-center">
+
+                            <span class="text-8xl
+                                         opacity-70">
+
+                                🐍
+
+                            </span>
+
+                        </div>
+
+                        <div class="project-overlay"></div>
+
+
+                        <div class="absolute
+                                    top-5
+                                    left-6">
+
+                            <span class="project-number">
+                                04
+                            </span>
+
+                        </div>
+
+
+                        <div class="absolute
+                                    bottom-0
+                                    left-0
+                                    right-0
+                                    p-7">
+
+                            <p class="text-accent
+                                      text-xs
+                                      uppercase
+                                      tracking-widest">
+
+                                Python / OOP / SQL
+
+                            </p>
+
+                            <h3 class="font-display
+                                       text-3xl
+                                       font-semibold
+                                       mt-2">
+
+                                Python Applications
+
+                            </h3>
+
+                            <p class="text-gray-400
+                                      text-sm
+                                      mt-3">
+
+                                Python applications exploring
+                                OOP, functions and databases.
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ==========================================
+     BIG TEXT
+========================================== -->
+
+<section class="py-24 overflow-hidden">
+
+    <div class="big-text
+                font-display
+                text-[15vw]
+                font-bold
+                whitespace-nowrap
+                text-center
+                outline-text">
+
+        CODE • CREATE • BUILD
+
+    </div>
+
+</section>
+
+
+
+<!-- ==========================================
+     CONTACT
+========================================== -->
+
+<section id="contact"
+         class="section
+                py-32
+                bg-[#080808]">
+
+
+    <div class="max-w-7xl
+                mx-auto
+                px-6">
+
+
+        <div class="grid lg:grid-cols-12
+                    gap-10">
+
+
+            <div class="lg:col-span-2">
+
+                <div class="section-number">
+                    04
+                </div>
+
+            </div>
+
+
+            <div class="lg:col-span-10">
+
+
+                <p class="text-accent
+                          uppercase
+                          tracking-[5px]
+                          text-sm">
+
+                    Contact
+
+                </p>
+
+
+                <h2 class="contact-title
+                           mt-6">
+
+                    Let's make
+                    something
+                    <span class="text-accent">
+                        great.
+                    </span>
+
+                </h2>
+
+
+                <p class="text-gray-500
+                          text-lg
+                          max-w-xl
+                          mt-10">
+
+                    Have an idea, project or opportunity?
+                    I'd love to hear about it.
+
+                </p>
+
+
+                <div class="flex flex-wrap
+                            gap-5
+                            mt-10">
+
+
+                    <a href="mailto:your@email.com"
+                       class="magnetic
+                              bg-accent
+                              text-black
+                              px-8 py-4
+                              rounded-full
+                              font-semibold">
+
+                        Send Me an Email →
+
+                    </a>
+
+
+                    <a href="https://linkedin.com/in/nandhan-m-s-2a95b4379"
+                       class="magnetic
+                              border border-white/20
+                              px-8 py-4
+                              rounded-full
+                              hover:border-accent
+                              hover:text-accent
+                              transition">
+
+                        LinkedIn
+
+                    </a>
+
+
+                    <a href="https://github.com/msnandhan516-coder"
+                       class="magnetic
+                              border border-white/20
+                              px-8 py-4
+                              rounded-full
+                              hover:border-accent
+                              hover:text-accent
+                              transition">
+
+                        GitHub
+
+                    </a>
+
+                </div>
+
+
+                <div class="mt-20
+                            pt-8
+                            border-t
+                            border-white/10
+                            flex
+                            flex-col
+                            md:flex-row
+                            justify-between
+                            gap-4
+                            text-sm
+                            text-gray-600">
+
+                    <span>
+                        © 2026 Nandhan M S
+                    </span>
+
+                    <span>
+                        Python Full Stack Developer
+                    </span>
+
+                    <span>
+                        Built with curiosity.
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ==========================================
+     JAVASCRIPT
+========================================== -->
+
+<script>
+
+gsap.registerPlugin(ScrollTrigger);
+
+
+/* ==========================================
+   LOADER
+========================================== */
+
+let counter = {
+    value: 0
+};
+
+gsap.to(counter, {
+
+    value: 100,
+
+    duration: 2,
+
+    ease: "power2.out",
+
+    onUpdate: () => {
+
+        document.getElementById("loadPercent")
+            .textContent =
+            Math.floor(counter.value);
+
+    },
+
+    onComplete: () => {
+
+        gsap.to("#loader", {
+
+            yPercent: -100,
+
+            duration: 1.2,
+
+            ease: "power4.inOut",
+
+            onComplete: () => {
+
+                document
+                    .getElementById("loader")
+                    .style.display = "none";
+
+                startHeroAnimation();
+
+            }
+
+        });
+
+    }
+
+});
+
+
+
+/* ==========================================
+   HERO ANIMATION
+========================================== */
+
+function startHeroAnimation() {
+
+    const tl = gsap.timeline();
+
+
+    tl.to("#navbar", {
+
+        y: 0,
+
+        duration: 1,
+
+        ease: "power4.out"
+
+    });
+
+
+    tl.to(".hero-word span", {
+
+        y: 0,
+
+        duration: 1.3,
+
+        stagger: .15,
+
+        ease: "power4.out"
+
+    }, "-=.5");
+
+
+    tl.from(".hero-small", {
+
+        y: 30,
+
+        opacity: 0,
+
+        duration: .8
+
+    }, "-=.8");
+
+
+    tl.from(".hero-description", {
+
+        y: 30,
+
+        opacity: 0,
+
+        duration: .8
+
+    }, "-=.5");
+
+
+    tl.from(".hero-buttons", {
+
+        y: 30,
+
+        opacity: 0,
+
+        duration: .8
+
+    }, "-=.5");
+
+
+    gsap.to(".hero-glow", {
+
+        x: 150,
+
+        y: 100,
+
+        duration: 6,
+
+        repeat: -1,
+
+        yoyo: true,
+
+        ease: "sine.inOut"
+
+    });
+
+
+    gsap.to(".scroll-dot", {
+
+        y: 25,
+
+        duration: 1,
+
+        repeat: -1,
+
+        yoyo: true,
+
+        ease: "power1.inOut"
+
+    });
+
+}
+
+
+
+/* ==========================================
+   SECTION REVEALS
+========================================== */
+
+gsap.utils.toArray(".section-label, .about-heading").forEach(
+    element => {
+
+        gsap.from(element, {
+
+            scrollTrigger: {
+
+                trigger: element,
+
+                start: "top 85%"
+
+            },
+
+            y: 80,
+
+            opacity: 0,
+
+            duration: 1.1,
+
+            ease: "power4.out"
+
+        });
+
+    }
+);
+
+
+
+/* ==========================================
+   ABOUT TEXT
+========================================== */
+
+gsap.from(".about-text", {
+
+    scrollTrigger: {
+
+        trigger: ".about-text",
+
+        start: "top 80%"
+
+    },
+
+    x: -80,
+
+    opacity: 0,
+
+    duration: 1.2,
+
+    ease: "power4.out"
+
+});
+
+
+gsap.from(".about-card", {
+
+    scrollTrigger: {
+
+        trigger: ".about-card",
+
+        start: "top 80%"
+
+    },
+
+    x: 80,
+
+    opacity: 0,
+
+    duration: 1.2,
+
+    ease: "power4.out"
+
+});
+
+
+
+/* ==========================================
+   SKILLS
+========================================== */
+
+gsap.from(".skill-item", {
+
+    scrollTrigger: {
+
+        trigger: ".skill-item",
+
+        start: "top 90%"
+
+    },
+
+    y: 60,
+
+    opacity: 0,
+
+    stagger: .12,
+
+    duration: .8,
+
+    ease: "power3.out"
+
+});
+
+
+gsap.utils.toArray(".skill-item").forEach((item, index) => {
+
+    gsap.from(item, {
+        scrollTrigger: {
+            trigger: item,
+            start: "top 90%",
+            toggleActions: "play none none reverse"
+        },
+
+        y: 60,
+        opacity: 0,
+
+        duration: 0.8,
+
+        delay: index * 0.08,
+
+        ease: "power3.out"
+    });
+
+});
+
+
+
+gsap.from(".skills-heading", {
+
+    scrollTrigger: {
+        trigger: ".skills-heading",
+        start: "top 85%",
+        toggleActions: "play none none reverse"
+    },
+
+    y: 80,
+    opacity: 0,
+
+    duration: 1,
+
+    ease: "power4.out"
+
+});
+
+
+/* ==========================================
+   PROJECTS
+========================================== */
+
+gsap.from(".project-reveal", {
+
+    scrollTrigger: {
+
+        trigger: ".project-reveal",
+
+        start: "top 85%"
+
+    },
+
+    y: 100,
+
+    opacity: 0,
+
+    scale: .95,
+
+    stagger: .2,
+
+    duration: 1,
+
+    ease: "power4.out"
+
+});
+
+
+
+/* ==========================================
+   BIG TEXT PARALLAX
+========================================== */
+
+gsap.to(".big-text", {
+
+    xPercent: -15,
+
+    scrollTrigger: {
+
+        trigger: ".big-text",
+
+        scrub: 1
+
+    }
+
+});
+
+
+
+/* ==========================================
+   CONTACT
+========================================== */
+
+gsap.from(".contact-title", {
+
+    scrollTrigger: {
+
+        trigger: ".contact-title",
+
+        start: "top 80%"
+
+    },
+
+    y: 120,
+
+    opacity: 0,
+
+    duration: 1.3,
+
+    ease: "power4.out"
+
+});
+
+
+
+/* ==========================================
+   NAVBAR ACTIVE SECTION
+========================================== */
+
+const sections = document.querySelectorAll("section[id]");
+
+const navLinks = document.querySelectorAll(".nav-link");
+
+
+sections.forEach(section => {
+
+    ScrollTrigger.create({
+
+        trigger: section,
+
+        start: "top 40%",
+
+        end: "bottom 40%",
+
+        onEnter: () => activate(section.id),
+
+        onEnterBack: () => activate(section.id)
+
+    });
+
+});
+
+
+function activate(id) {
+
+    navLinks.forEach(link => {
+
+        link.classList.remove("active");
+
+        if (
+            link.getAttribute("href") === "#" + id
+        ) {
+
+            link.classList.add("active");
+
+        }
+
+    });
+
+}
+
+
+
+/* ==========================================
+   CUSTOM CURSOR
+========================================== */
+
+const cursor =
+    document.querySelector(".cursor");
+
+const ring =
+    document.querySelector(".cursor-ring");
+
+
+document.addEventListener("mousemove", e => {
+
+    gsap.to(cursor, {
+
+        x: e.clientX,
+
+        y: e.clientY,
+
+        duration: .1
+
+    });
+
+
+    gsap.to(ring, {
+
+        x: e.clientX,
+
+        y: e.clientY,
+
+        duration: .4,
+
+        ease: "power2.out"
+
+    });
+
+});
+
+
+
+/* ==========================================
+   MAGNETIC BUTTONS
+========================================== */
+
+document.querySelectorAll(".magnetic")
+.forEach(button => {
+
+    button.addEventListener("mousemove", e => {
+
+        const rect =
+            button.getBoundingClientRect();
+
+        const x =
+            e.clientX -
+            rect.left -
+            rect.width / 2;
+
+        const y =
+            e.clientY -
+            rect.top -
+            rect.height / 2;
+
+
+        gsap.to(button, {
+
+            x: x * .18,
+
+            y: y * .18,
+
+            duration: .4,
+
+            ease: "power2.out"
+
+        });
+
+    });
+
+
+    button.addEventListener("mouseleave", () => {
+
+        gsap.to(button, {
+
+            x: 0,
+
+            y: 0,
+
+            duration: .5,
+
+            ease: "elastic.out(1,.5)"
+
+        });
+
+    });
+
+});
+
+
+
+/* ==========================================
+   MOBILE MENU
+========================================== */
+
+const menuBtn =
+    document.getElementById("menuBtn");
+
+const mobileMenu =
+    document.getElementById("mobileMenu");
+
+
+menuBtn.addEventListener("click", () => {
+
+    mobileMenu.classList.toggle("hidden");
+
+});
+
+
+document.querySelectorAll("#mobileMenu a")
+.forEach(link => {
+
+    link.addEventListener("click", () => {
+
+        mobileMenu.classList.add("hidden");
+
+    });
+
+});
+
+
+</script>
+
+</body>
+</html>
+```
