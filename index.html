@@ -500,6 +500,48 @@
     box-shadow:0 0 24px rgba(0,229,255,.10);
   }
 
+  /* Project explorer: featured selection, search and filters */
+  .project-explorer{min-width:0}
+  .featured-project{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:clamp(18px,3vw,38px);align-items:center;padding:clamp(16px,3vw,30px);border:1px solid rgba(0,229,255,.32);border-radius:26px;background:linear-gradient(120deg,rgba(9,25,45,.96),rgba(15,13,34,.96));box-shadow:0 0 35px rgba(0,229,255,.07);transition:border-color .3s,box-shadow .3s}
+  #featuredProject{scroll-margin-top:100px}
+  .featured-project-image{height:clamp(220px,28vw,360px);overflow:hidden;border-radius:17px;border:1px solid rgba(255,255,255,.12);background:#08111f}
+  .featured-project-image img{width:100%;height:100%;object-fit:cover;display:block;transition:opacity .2s,transform .5s}
+  .featured-project-copy{min-width:0}
+  .featured-kicker{font:600 10px 'JetBrains Mono',monospace;letter-spacing:.22em;color:#00e5ff}
+  .featured-project-copy h3{font-family:'Space Grotesk',sans-serif;font-size:clamp(1.5rem,3vw,2.5rem);font-weight:700;line-height:1.12;margin-top:12px;color:#f8fafc}
+  .featured-project-copy p{color:#a9b5c8;font-size:14px;line-height:1.75;margin-top:12px}
+  .featured-tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:17px}
+  .featured-tags span{font-size:10px;letter-spacing:.04em;border:1px solid rgba(0,229,255,.25);border-radius:999px;padding:5px 10px;color:#bcefff;background:rgba(0,229,255,.04)}
+  .featured-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+  .featured-action-primary,.featured-action-secondary,.load-more-projects{border-radius:999px;padding:10px 16px;font-size:12px;font-weight:600;transition:transform .2s,box-shadow .2s,border-color .2s}
+  .featured-action-primary{color:#04111d;background:linear-gradient(100deg,#00e5ff,#8b5cf6)}
+  .featured-action-secondary,.load-more-projects{color:#bcefff;border:1px solid rgba(0,229,255,.35);background:rgba(0,229,255,.04)}
+  .featured-action-primary:hover,.featured-action-secondary:hover,.load-more-projects:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(0,229,255,.12)}
+  .project-tools{margin-top:28px;display:grid;gap:13px}
+  .project-search-wrap{display:flex;align-items:center;gap:10px;border:1px solid rgba(255,255,255,.12);border-radius:14px;background:rgba(255,255,255,.035);padding:0 15px;color:#00e5ff}
+  .project-search-wrap input{width:100%;min-width:0;background:transparent;border:0;outline:0;padding:14px 0;color:#f8fafc;font-size:13px}
+  .project-search-wrap input::placeholder{color:#78869b}
+  .project-filters{display:flex;flex-wrap:wrap;gap:8px}
+  .project-filter{border:1px solid rgba(255,255,255,.12);border-radius:999px;padding:8px 13px;color:#9ba9bd;font-size:11px;transition:.2s}
+  .project-filter.active,.project-filter:hover{color:#bdf7ff;border-color:rgba(0,229,255,.6);background:rgba(0,229,255,.08)}
+  .project-results-heading{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:22px 0 13px;color:#7f8ca2;font-size:11px}
+  .projects-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+  .project-select-card{display:block;width:100%;min-width:0;text-align:left;min-height:0;border-radius:18px;border-color:rgba(255,255,255,.1);transition:transform .25s,border-color .25s,box-shadow .25s;isolation:isolate}
+  .project-select-card .project-image{height:210px}
+  .project-select-card .project-image img{filter:none;transition:transform .55s}
+  .project-select-card:hover .project-image img{transform:scale(1.045)}
+  .project-select-card .project-number{position:absolute;top:14px;left:14px;z-index:3;width:42px;height:42px;font-size:11px;border-radius:12px}
+  .project-card-copy{position:relative;padding:18px;background:linear-gradient(180deg,#0b1424,#0b101d)}
+  .project-card-copy h3{font-family:'Space Grotesk',sans-serif;font-size:clamp(15px,1.4vw,19px);font-weight:650;line-height:1.3;margin-top:8px;color:#f1f5f9}
+  .project-card-copy>p:not(.text-accent){font-size:12px;line-height:1.6;color:#95a2b7;margin-top:8px}
+  .project-select-hint{display:inline-block;margin-top:14px;font:600 9px 'JetBrains Mono',monospace;letter-spacing:.12em;color:#00e5ff}
+  .project-select-card.is-selected{border-color:#00e5ff;box-shadow:0 0 0 1px rgba(0,229,255,.32),0 0 26px rgba(0,229,255,.12);transform:translateY(-2px)}
+  .project-select-card.is-selected .project-select-hint{color:#c4b5fd}
+  .project-select-card[hidden]{display:none!important}
+  .load-more-projects{display:block;margin:22px auto 0}
+  @media(max-width:900px){.featured-project{grid-template-columns:1fr}.featured-project-image{height:clamp(200px,48vw,330px)}}
+  @media(max-width:640px){.projects-grid{grid-template-columns:1fr;gap:14px}.project-select-card .project-image{height:220px}.project-card-copy{padding:16px}.project-results-heading{margin-top:17px}}
+
   /* ================= PROJECT INTERNAL SCROLLER ================= */
   .projects-scroll{
     max-height:690px;
@@ -521,8 +563,6 @@
   }
   @media(max-width:768px){
     .hero-stage{min-height:480px;margin-top:30px}
-    .avatar-stage{height:470px;transform:scale(.82);transform-origin:center top;margin-bottom:-65px}
-    .float-code,.float-stack,.bubble-one,.bubble-two{display:none}
     .projects-scroll{max-height:620px;padding-right:8px}
     .projects-grid{grid-template-columns:1fr}
     .skill-logo{width:36px;height:36px;flex-basis:36px}
@@ -833,6 +873,87 @@
     .footer-bottom>span:nth-child(2){text-align:left}.footer-top-link{justify-self:start}
   }
 
+
+  /* ================= HERO ROBOT GUIDE ================= */
+  .robo-stage{position:relative;min-height:620px;display:flex;align-items:center;justify-content:center;isolation:isolate;overflow:visible}
+  .robo-aura{position:absolute;width:360px;height:360px;border-radius:50%;background:radial-gradient(circle,rgba(0,229,255,.17),rgba(124,92,255,.11) 45%,transparent 72%);filter:blur(12px);animation:roboAura 5s ease-in-out infinite;z-index:-2}
+  .robo-orbit{position:absolute;width:390px;height:390px;border:1px solid rgba(0,229,255,.18);border-radius:50%;transform:rotateX(66deg) rotateZ(-20deg);animation:roboOrbit 18s linear infinite;z-index:-1}
+  .robo-orbit::before,.robo-orbit::after{content:"";position:absolute;width:9px;height:9px;border-radius:50%;background:#00e5ff;box-shadow:0 0 18px #00e5ff;top:50%;left:-5px}
+  .robo-orbit::after{left:auto;right:-5px;background:#9b83ff;box-shadow:0 0 18px #7c5cff}
+  .robot-wrap{position:relative;width:290px;height:365px;display:flex;align-items:center;justify-content:center;animation:roboFloat 4.2s ease-in-out infinite;filter:drop-shadow(0 25px 35px rgba(0,0,0,.42));will-change:transform}
+  .robot-svg{width:100%;height:100%;overflow:visible}
+  .robot-eye{transform-box:fill-box;transform-origin:center;animation:robotBlink 4.8s infinite}
+  .robot-mouth{transform-box:fill-box;transform-origin:center;transition:opacity .08s ease}
+  .robot-mouth-open{opacity:0;transform-box:fill-box;transform-origin:center;transform:scaleY(.15)}
+  .robo-stage.robot-speaking .robot-mouth-smile{opacity:0}
+  .robo-stage.robot-speaking .robot-mouth-open{opacity:1;animation:robotTalk .14s ease-in-out infinite alternate}
+  .robo-stage.robot-speaking .robot-mouth-open:nth-of-type(even){animation-duration:.19s}
+  .robo-stage.robot-speaking .robot-arm-left{animation:robotWave .55s ease-in-out infinite}
+  .robot-controls{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}
+  .robot-control{border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.045);color:#cbd5e1;border-radius:999px;padding:7px 10px;font:600 9px 'JetBrains Mono',monospace;letter-spacing:.03em;transition:all .2s;cursor:pointer}
+  .robot-control:hover,.robot-control:focus-visible{border-color:rgba(0,229,255,.6);color:#00e5ff;background:rgba(0,229,255,.08);outline:none}
+  .robot-control.primary{color:#06131b;background:#00e5ff;border-color:#00e5ff}
+  .robot-control.primary:hover{background:#8af5ff;color:#06131b}
+  .robot-status{font:500 8px 'JetBrains Mono',monospace;color:#728093;margin-top:8px;min-height:12px}
+  .robot-wrap{cursor:pointer;transition:filter .25s}
+  .robot-wrap:focus-visible{outline:2px solid #00e5ff;outline-offset:5px;border-radius:30px}
+  .robot-antenna-light{animation:robotPulse 1.5s ease-in-out infinite}
+  .robot-arm-left{transform-box:fill-box;transform-origin:top right;animation:robotWave 3.4s ease-in-out infinite}
+  .robot-shadow{position:absolute;width:190px;height:28px;bottom:10px;left:50%;transform:translateX(-50%);border-radius:50%;background:rgba(0,229,255,.14);filter:blur(16px);animation:roboShadow 4.2s ease-in-out infinite}
+  .robot-speech{position:absolute;top:26px;right:-15px;width:min(285px,80%);padding:18px 19px 16px;border-radius:20px 20px 5px 20px;background:rgba(11,16,28,.86);border:1px solid rgba(0,229,255,.32);backdrop-filter:blur(18px);box-shadow:0 18px 50px rgba(0,0,0,.28),0 0 32px rgba(0,229,255,.08);animation:speechFloat 4s ease-in-out infinite;z-index:5}
+  .robot-speech::after{content:"";position:absolute;right:27px;bottom:-7px;width:13px;height:13px;background:#0b101c;border-right:1px solid rgba(0,229,255,.32);border-bottom:1px solid rgba(0,229,255,.32);transform:rotate(45deg)}
+  .robot-speech-label{display:flex;align-items:center;gap:7px;margin-bottom:8px;color:#00e5ff;font:600 9px 'JetBrains Mono',monospace;letter-spacing:.19em;text-transform:uppercase}
+  .robot-speech-label i{width:6px;height:6px;border-radius:50%;background:#52f5b0;box-shadow:0 0 10px #52f5b0;animation:robotPulse 1.5s infinite}
+  .robot-speech-text{min-height:54px;color:#eef4ff;font-size:13px;line-height:1.65}
+  .robot-speech-text strong{color:#00e5ff;font-weight:600}
+  .robot-current-word{color:#fff!important;background:rgba(0,229,255,.18);border-radius:4px;box-shadow:0 0 12px rgba(0,229,255,.18)}
+  .robot-quick-facts{position:absolute;left:-8px;bottom:58px;display:flex;flex-direction:column;gap:9px;z-index:4}
+  .robot-fact{display:flex;align-items:center;gap:9px;padding:9px 12px;border-radius:12px;background:rgba(10,14,24,.76);border:1px solid rgba(255,255,255,.09);backdrop-filter:blur(12px);font:500 10px 'JetBrains Mono',monospace;color:#cbd3df;box-shadow:0 12px 25px rgba(0,0,0,.18);animation:factDrift 5s ease-in-out infinite}
+  .robot-fact:nth-child(2){margin-left:18px;animation-delay:-1.6s}.robot-fact:nth-child(3){animation-delay:-3s}
+  .robot-fact svg{width:15px;height:15px;color:#00e5ff;flex-shrink:0}
+  .robot-caption{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);white-space:nowrap;color:#657083;font:500 8px 'JetBrains Mono',monospace;letter-spacing:.24em}
+  .robot-caption span{color:#00e5ff}
+  @keyframes roboFloat{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-13px) rotate(1deg)}}
+  @keyframes roboShadow{0%,100%{transform:translateX(-50%) scale(1);opacity:.8}50%{transform:translateX(-50%) scale(.82);opacity:.45}}
+  @keyframes roboAura{0%,100%{transform:scale(.92);opacity:.7}50%{transform:scale(1.08);opacity:1}}
+  @keyframes roboOrbit{to{transform:rotateX(66deg) rotateZ(340deg)}}
+  @keyframes robotBlink{0%,44%,48%,100%{transform:scaleY(1)}46%{transform:scaleY(.08)}}
+  @keyframes robotTalk{0%,100%{transform:scaleY(.75)}50%{transform:scaleY(1.15)}}
+  @keyframes robotPulse{0%,100%{opacity:.55;transform:scale(.88)}50%{opacity:1;transform:scale(1.12)}}
+  @keyframes robotWave{0%,72%,100%{transform:rotate(0)}82%,92%{transform:rotate(-12deg)}}
+  @keyframes speechFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+  @keyframes factDrift{0%,100%{transform:translateX(0)}50%{transform:translateX(5px)}}
+  @media(max-width:1024px){.robo-stage{min-height:560px}.robot-speech{right:0;top:12px}.robot-quick-facts{left:0;bottom:35px}}
+  @media(max-width:768px){.robo-stage{min-height:565px;margin-top:8px}.robot-wrap{width:220px;height:280px;margin-top:110px}.robo-aura{width:290px;height:290px}.robo-orbit{width:300px;height:300px}.robot-speech{width:min(290px,94%);right:0;top:0;padding:13px 14px}.robot-speech-text{font-size:11px;min-height:42px}.robot-controls{gap:5px;margin-top:9px}.robot-control{font-size:8px;padding:7px 9px}.robot-quick-facts{left:-2px;bottom:22px;gap:6px}.robot-fact{padding:7px 9px;font-size:9px}.robot-caption{font-size:7px;letter-spacing:.15em;bottom:0}}
+  /* Robot guide motion is an intentional interactive feature; keep it animated across browsers. */
+  /* HARD VISIBILITY OVERRIDES: keep the guide and its text visible in Chrome and Edge. */
+  .robo-stage .robot-speech{display:block!important;visibility:visible!important;opacity:1!important;transform:none!important;animation:none!important;filter:none!important;z-index:99999!important;background:#101827!important;color:#f8fafc!important;border:2px solid #00e5ff!important;box-shadow:0 10px 35px rgba(0,0,0,.55)!important;}
+  /* Keep the speech panel above the robot instead of covering its face. */
+  .robo-stage{min-height:620px!important;align-items:flex-end!important;padding-top:0!important;padding-bottom:22px!important}
+  .robo-stage .robot-speech{top:8px!important;left:50%!important;right:auto!important;bottom:auto!important;width:min(390px,94%)!important;transform:translateX(-50%)!important;padding:14px 16px 12px!important;}
+  .robo-stage .robot-wrap{flex-shrink:0!important;margin-top:0!important;margin-bottom:10px!important;position:relative!important;z-index:2!important}
+  .robo-stage .robo-aura,.robo-stage .robo-orbit{top:55%!important;left:50%!important;transform-origin:center!important}
+  .robo-stage .robot-quick-facts{bottom:18px!important;z-index:3!important}
+  .robo-stage .robot-caption{bottom:0!important}
+  @media(max-width:768px){.robo-stage{min-height:600px!important;padding-bottom:34px!important}.robo-stage .robot-speech{top:0!important;width:calc(100% - 20px)!important;padding:11px 12px 10px!important}.robo-stage .robot-wrap{width:220px!important;height:280px!important;margin-top:0!important;margin-bottom:26px!important}.robo-stage .robot-quick-facts{bottom:18px!important}.robo-stage .robot-caption{bottom:0!important}}
+  .robo-stage #robotSpeechText{display:block!important;visibility:visible!important;opacity:1!important;transform:none!important;color:#f8fafc!important;background:transparent!important;position:relative!important;z-index:100000!important;overflow-wrap:anywhere!important;min-height:60px!important;white-space:normal!important;font-size:14px!important;line-height:1.7!important;text-shadow:none!important;}
+  .robo-stage #robotSpeechText *{visibility:visible!important;opacity:1!important;}
+  .robo-stage .robot-speech-label,.robo-stage .robot-controls,.robo-stage .robot-status{visibility:visible!important;opacity:1!important;color:#eef4ff!important;}
+  .robo-stage .robot-speech-label{color:#00e5ff!important;}
+  .robo-stage .robot-current-word{color:#07111d!important;background:#00e5ff!important;border-radius:4px;padding:0 2px;box-shadow:none!important;}
+  .robot-wrap{animation:roboFloat 3.2s ease-in-out infinite!important;transform-origin:50% 60%}
+  .robo-aura{animation:roboAura 4s ease-in-out infinite!important}
+  .robo-orbit{animation:roboOrbit 14s linear infinite!important}
+  .robot-arm-left{animation:robotWave 2.8s ease-in-out infinite!important}
+  .robot-eye{animation:robotBlink 4.2s infinite!important}
+  .robot-shadow{animation:roboShadow 3.2s ease-in-out infinite!important}
+  .robot-antenna-light{animation:robotPulse 1.3s ease-in-out infinite!important}
+  .robot-fact{animation:factDrift 4s ease-in-out infinite!important}
+  .robo-stage.robot-speaking .robot-mouth-smile{opacity:0!important}
+  .robo-stage.robot-speaking .robot-mouth-open{opacity:1!important;animation:robotTalk .16s ease-in-out infinite alternate!important}
+  .robo-stage.robot-speaking .robot-arm-left{animation:robotWave .48s ease-in-out infinite!important}
+  @media(prefers-reduced-motion:reduce){.robot-wrap,.robo-aura,.robo-orbit,.robot-eye,.robot-mouth,.robot-antenna-light,.robot-arm-left,.robot-shadow,.robot-speech,.robot-fact{animation-duration:4s!important;animation-iteration-count:infinite!important}}
+
 </style>
 </head>
 
@@ -931,67 +1052,67 @@
           </div>
         </div>
 
-        <div class="lg:col-span-5 hero-stage">
-          <div class="idcard-stage" id="idCardStage" aria-label="Animated hanging ID card">
-            <div class="idcard-lanyard" aria-hidden="true">
-              <div class="lanyard-strap">
-                <span class="lanyard-strap-stitch"></span>
-                <span class="lanyard-strap-text">N M S</span>
-                <span class="lanyard-strap-sheen"></span>
-              </div>
-              <div class="lanyard-strap-fold"></div>
-              <div class="lanyard-ring"></div>
-              <div class="lanyard-hook"></div>
+        <div class="lg:col-span-5 hero-stage robo-stage" aria-label="Animated robot introducing Nandhan">
+          <div class="robo-aura" aria-hidden="true"></div>
+          <div class="robo-orbit" aria-hidden="true"></div>
+          <div class="robot-speech" aria-label="Interactive robot guide">
+            <div class="robot-speech-label"><i></i> NMS BOT · YOUR GUIDE</div>
+            <div class="robot-speech-text" id="robotSpeechText" role="status" aria-live="polite"></div>
+            <div class="robot-controls" aria-label="Choose what the robot tells you">
+              <button class="robot-control" type="button" data-robot-topic="about">About Nandhan</button>
+              <button class="robot-control" type="button" data-robot-topic="skills">Skills</button>
+              <button class="robot-control" type="button" data-robot-topic="projects">Projects</button>
+              <button class="robot-control primary" type="button" id="robotSpeakBtn" aria-pressed="false">▶ Speak intro</button>
             </div>
-
-            <div class="idcard-shadow" aria-hidden="true"></div>
-
-            <article class="id-card" id="heroIdCard">
-              <div class="id-card-inner">
-                <div class="id-card-header">
-                  <div class="id-card-logo">NMS<span>.</span></div>
-                  <div class="text-right">
-                    <div class="id-card-type">DEVELOPER</div>
-                    <div class="id-card-dots">///</div>
-                  </div>
-                </div>
-
-                <div class="id-photo">
-                  <img id="heroAvatar" alt="Nandhan M S">
-                  <div class="id-scan"></div>
-                </div>
-
-                <div class="id-name">NANDHAN <span>M S</span></div>
-                <div class="id-role">Python Full Stack Developer</div>
-                <div class="id-rule"></div>
-
-                <div class="id-meta">
-                  <div><span class="label">ID</span><span class="value">NMS2026</span></div>
-                  <div><span class="label">LOCATION</span><span class="value">India</span></div>
-                </div>
-
-                <div class="id-skills">
-                  <span class="label">SKILLS</span>
-                  <span>Python&nbsp;&nbsp; Django&nbsp;&nbsp; JavaScript</span>
-                </div>
-
-                <div class="id-qr" aria-label="Decorative QR code"></div>
-
-                <div class="id-bottom-strip">BUILD&nbsp; INNOVATE&nbsp; CREATE&nbsp; /&nbsp; TOGETHER</div>
-              </div>
-            </article>
-
-            <div class="id-note">
-              Developer<br>at heart
-              <svg viewBox="0 0 100 82" aria-hidden="true">
-                <path d="M72 5 C88 30,80 48,48 64 C39 68,29 72,17 73"></path>
-                <path d="M25 66 L17 73 L27 77"></path>
-              </svg>
-            </div>
-
-            <div class="id-card-caption">NANDHAN <span>•</span> PYTHON FULL STACK DEVELOPER</div>
+            <div class="robot-status" id="robotStatus" aria-live="polite">Choose a topic or click the robot to hear the introduction.</div>
           </div>
-        </div>
+          <div class="robot-quick-facts" aria-hidden="true">
+            <div class="robot-fact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 5 3 12l5 7M16 5l5 7-5 7M14 3l-4 18"/></svg> PYTHON · DJANGO</div>
+            <div class="robot-fact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="5" width="16" height="14" rx="3"/><path d="M9 10h.01M15 10h.01M9 14h6M12 2v3M12 19v3"/></svg> FULL-STACK BUILDER</div>
+            <div class="robot-fact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m12 3 2.7 5.5 6.1.9-4.4 4.3 1 6.1-5.4-2.9-5.4 2.9 1-6.1-4.4-4.3 6.1-.9L12 3Z"/></svg> IDEAS → APPLICATIONS</div>
+          </div>
+          <div class="robot-wrap" id="robotCharacter" role="button" tabindex="0" aria-label="Click the robot to hear the introduction with subtitles">
+            <svg class="robot-svg" viewBox="0 0 300 370" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="botShell" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f4fbff"/><stop offset=".48" stop-color="#b9c8dc"/><stop offset="1" stop-color="#65748e"/></linearGradient>
+                <linearGradient id="botFace" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#18283b"/><stop offset="1" stop-color="#070d18"/></linearGradient>
+                <linearGradient id="botChest" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1b2a42"/><stop offset="1" stop-color="#0a101d"/></linearGradient>
+                <linearGradient id="botAccent" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#00e5ff"/><stop offset="1" stop-color="#8b70ff"/></linearGradient>
+                <filter id="botGlow"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+              </defs>
+              <!-- antenna -->
+              <path d="M150 50V31" stroke="#a9b8cb" stroke-width="7" stroke-linecap="round"/><circle class="robot-antenna-light" cx="150" cy="23" r="9" fill="#00e5ff" filter="url(#botGlow)"/>
+              <!-- ears -->
+              <rect x="40" y="98" width="24" height="52" rx="11" fill="#697b95"/><rect x="236" y="98" width="24" height="52" rx="11" fill="#697b95"/><rect x="45" y="108" width="12" height="30" rx="6" fill="url(#botAccent)"/><rect x="243" y="108" width="12" height="30" rx="6" fill="url(#botAccent)"/>
+              <!-- head shell -->
+              <rect x="53" y="43" width="194" height="151" rx="53" fill="url(#botShell)" stroke="#f3fbff" stroke-opacity=".8" stroke-width="2"/>
+              <path d="M75 63Q150 27 225 63" fill="none" stroke="#fff" stroke-opacity=".8" stroke-width="3" stroke-linecap="round"/>
+              <rect x="68" y="67" width="164" height="100" rx="34" fill="url(#botFace)" stroke="#00e5ff" stroke-opacity=".7" stroke-width="2"/>
+              <!-- eyes -->
+              <g class="robot-eye"><ellipse cx="111" cy="111" rx="13" ry="16" fill="#00e5ff" filter="url(#botGlow)"/><ellipse cx="189" cy="111" rx="13" ry="16" fill="#00e5ff" filter="url(#botGlow)"/><circle cx="115" cy="106" r="4" fill="#fff"/><circle cx="193" cy="106" r="4" fill="#fff"/></g>
+              <!-- smiling talking mouth -->
+              <path class="robot-mouth robot-mouth-smile" d="M121 139Q150 158 179 139" fill="none" stroke="#8b70ff" stroke-width="5" stroke-linecap="round" filter="url(#botGlow)"/>
+              <ellipse class="robot-mouth-open" cx="150" cy="143" rx="22" ry="12" fill="#070d18" stroke="#8b70ff" stroke-width="4" filter="url(#botGlow)"/>
+              <path class="robot-mouth-open" d="M135 145Q150 151 165 145" fill="none" stroke="#00e5ff" stroke-width="2.5" stroke-linecap="round"/>
+              <path d="M95 181Q150 202 205 181" fill="none" stroke="#8d9db4" stroke-opacity=".7" stroke-width="3"/>
+              <!-- neck -->
+              <rect x="128" y="190" width="44" height="25" rx="10" fill="#7e8da4"/><rect x="137" y="194" width="26" height="17" rx="7" fill="#26364d"/>
+              <!-- torso -->
+              <path d="M91 211Q150 193 209 211L232 292Q150 321 68 292Z" fill="url(#botShell)" stroke="#eaf5ff" stroke-width="2"/>
+              <path d="M105 220Q150 207 195 220L208 278Q150 296 92 278Z" fill="url(#botChest)" stroke="#00e5ff" stroke-opacity=".6" stroke-width="2"/>
+              <path d="M120 232H180" stroke="#6c7d96" stroke-width="2" stroke-linecap="round"/>
+              <circle cx="150" cy="251" r="17" fill="#101b2d" stroke="url(#botAccent)" stroke-width="3"/><path d="m144 251 5 5 9-11" fill="none" stroke="#00e5ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" filter="url(#botGlow)"/>
+              <path d="M112 271H188" stroke="#52647d" stroke-width="3" stroke-linecap="round"/><circle cx="122" cy="282" r="3" fill="#00e5ff"/><circle cx="134" cy="282" r="3" fill="#8b70ff"/><circle cx="146" cy="282" r="3" fill="#00e5ff"/>
+              <!-- arms -->
+              <g class="robot-arm-left"><path d="M82 226Q57 229 51 255L45 279" fill="none" stroke="url(#botShell)" stroke-width="21" stroke-linecap="round"/><path d="M82 226Q57 229 51 255L45 279" fill="none" stroke="#53657e" stroke-width="2" stroke-linecap="round"/><circle cx="44" cy="285" r="13" fill="url(#botShell)" stroke="#eaf5ff" stroke-width="2"/><path d="M37 285h14" stroke="#00e5ff" stroke-width="3" stroke-linecap="round"/></g>
+              <path d="M218 226Q242 233 248 257L254 278" fill="none" stroke="url(#botShell)" stroke-width="21" stroke-linecap="round"/><path d="M218 226Q242 233 248 257L254 278" fill="none" stroke="#53657e" stroke-width="2" stroke-linecap="round"/><circle cx="255" cy="285" r="13" fill="url(#botShell)" stroke="#eaf5ff" stroke-width="2"/><path d="M248 285h14" stroke="#8b70ff" stroke-width="3" stroke-linecap="round"/>
+              <!-- hips and feet -->
+              <path d="M94 294H206L197 319H103Z" fill="#7f8da3"/><path d="M112 316 108 338Q108 348 121 348H142Q151 348 151 338V318M188 316 192 338Q192 348 179 348H158Q149 348 149 338V318" fill="url(#botShell)" stroke="#eaf5ff" stroke-width="2"/>
+              <path d="M112 339H145M155 339H188" stroke="url(#botAccent)" stroke-width="4" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="robot-shadow" aria-hidden="true"></div>
+          <div class="robot-caption">MEET THE GUIDE <span>•</span> NANDHAN'S DIGITAL SIDEKICK</div>
         </div>
 
       </div>
@@ -1058,15 +1179,15 @@
               <div class="mt-8 space-y-4">
                 <div class="flex justify-between border-b border-white/10 pb-3">
                   <span class="text-gray-500">Frontend</span>
-                  <span>HTML / CSS / JS</span>
+                  <span>React / HTML / CSS / JS</span>
                 </div>
                 <div class="flex justify-between border-b border-white/10 pb-3">
                   <span class="text-gray-500">Backend</span>
-                  <span>Python / PHP</span>
+                  <span>Django / REST / PHP</span>
                 </div>
                 <div class="flex justify-between">
                   <span class="text-gray-500">Database</span>
-                  <span>MySQL</span>
+                  <span>PostgreSQL / Sqlite </span>
                 </div>
               </div>
             </div>
@@ -1265,85 +1386,43 @@
           <p class="text-accent uppercase tracking-[5px] text-sm reveal-up">Selected Work</p>
           <h2 class="font-display text-5xl md:text-7xl font-semibold mt-5 reveal-up">Things I've Built</h2>
 
-          <div class="projects-scroll mt-16" tabindex="0" aria-label="Scrollable project gallery"><div class="projects-grid">
-
-            <div class="project-card project-reveal" data-project="veterinary">
-              <div class="project-image overflow-hidden">
-                <img src="images/veterinary2.png"
-                  alt="Online Veterinary Appointment System"
-                  class="w-full h-full object-cover blur-[1.5px] scale-[1.01]">
-              </div>
-              <div class="project-overlay"></div>
-              <div class="absolute top-5 left-6 z-20">
-                <span class="project-number project-number-animated">01</span>
-              </div>
-              <div class="absolute bottom-0 left-0 right-0 p-7">
-                <p class="text-accent text-xs uppercase tracking-widest">Python / MySQL / JS</p>
-                <h3 class="font-display text-3xl font-semibold mt-2">Online Veterinary Appointment System</h3>
-                <p class="text-gray-400 text-sm mt-3">Online veterinary appointment and service management platform.</p>
-                <span class="view-tag inline-block mt-4 text-xs tracking-widest text-accent border-b border-accent pb-1">VIEW PROJECT ↗</span>
+          <div class="project-explorer mt-12">
+            <div class="featured-project" id="featuredProject" aria-live="polite">
+              <div class="featured-project-image"><img id="featuredProjectImage" src="images/veterinary2.png" alt="Online Veterinary Appointment System preview"></div>
+              <div class="featured-project-copy">
+                <span class="featured-kicker">FEATURED PROJECT</span>
+                <h3 id="featuredProjectTitle">Online Veterinary Appointment System</h3>
+                <p id="featuredProjectDescription">Online veterinary appointment and service management platform.</p>
+                <div id="featuredProjectTags" class="featured-tags"><span>PHP</span><span>MySQL</span><span>JavaScript</span></div>
+                <div class="featured-actions"><button type="button" id="featuredDetailsBtn" class="featured-action-primary">Explore Project ↗</button><a id="featuredGithubLink" class="featured-action-secondary" href="https://github.com/msnandhan516-coder/Online-Veterinary-Appointment-System" target="_blank" rel="noopener noreferrer">View Code ↗</a></div>
               </div>
             </div>
-
-            <div class="project-card project-reveal" data-project="turf">
-              <div class="project-image overflow-hidden">
-                <img src="images/turf_booking.png"
-                  alt="Online Turf Booking System"
-                  class="w-full h-full object-cover blur-[1.5px] scale-[1.01]">
-              </div>
-              <div class="project-overlay"></div>
-              <div class="absolute top-5 left-6 z-20">
-                <span class="project-number project-number-animated">02</span>
-              </div>
-              <div class="absolute bottom-0 left-0 right-0 p-7">
-                <p class="text-accent text-xs uppercase tracking-widest">Python / MySQL</p>
-                <h3 class="font-display text-3xl font-semibold mt-2">Online Turf Booking System</h3>
-                <p class="text-gray-400 text-sm mt-3">A user-friendly platform for booking and managing turf facilities.</p>
-                <span class="view-tag inline-block mt-4 text-xs tracking-widest text-accent border-b border-accent pb-1">VIEW PROJECT ↗</span>
+            <div class="project-tools">
+              <label class="project-search-wrap"><span aria-hidden="true">⌕</span><input id="projectSearch" type="search" placeholder="Search projects by name or technology…" aria-label="Search projects"></label>
+              <div class="project-filters" role="group" aria-label="Filter projects by category">
+                <button type="button" class="project-filter active" data-filter="all" aria-pressed="true">All Projects</button>
+                <button type="button" class="project-filter" data-filter="web" aria-pressed="false">Web Development</button>
+                <button type="button" class="project-filter" data-filter="python" aria-pressed="false">Python / Django</button>
+                <button type="button" class="project-filter" data-filter="database" aria-pressed="false">Database</button>
               </div>
             </div>
-
-            <div class="project-card project-reveal" data-project="library">
-                <div class="project-image overflow-hidden">
-                    <img src="images/library.png"
-                        alt="Library Management System"
-                        class="w-full h-full object-cover blur-[1.5px] scale-[1.01]">
-                </div>
-              <div class="project-overlay"></div>
-                <div class="absolute top-5 left-6 z-20">
-                    <span class="project-number project-number-animated">
-                        03
-                    </span>
-                </div>
-              <div class="absolute bottom-0 left-0 right-0 p-7">
-                <p class="text-accent text-xs uppercase tracking-widest">Python / MySQL</p>
-                <h3 class="font-display text-3xl font-semibold mt-2">Library Management System</h3>
-                <p class="text-gray-400 text-sm mt-3">A comprehensive library management solution with user-friendly interface.</p>
-                <span class="view-tag inline-block mt-4 text-xs tracking-widest text-accent border-b border-accent pb-1">VIEW PROJECT ↗</span>
-              </div>
+            <div class="project-results-heading"><span id="projectResultsCount">4 projects</span><span>Choose a card to feature it above</span></div>
+            <div class="projects-grid" id="projectExplorerGrid">
+              <button type="button" class="project-card project-reveal project-select-card is-selected" data-project="vet" data-category="web database" data-tech="php mysql html css javascript" aria-pressed="true">
+                <div class="project-image overflow-hidden"><img src="images/veterinary2.png" alt="Online Veterinary Appointment System" class="w-full h-full object-cover"></div><div class="project-overlay"></div><span class="project-number project-number-animated">01</span><div class="project-card-copy"><p class="text-accent text-xs uppercase tracking-widest">PHP / MySQL / JS</p><h3>Online Veterinary Appointment System</h3><p>Online veterinary appointment and service management platform.</p><span class="project-select-hint">SELECT PROJECT ↗</span></div>
+              </button>
+              <button type="button" class="project-card project-reveal project-select-card" data-project="shop" data-category="web database" data-tech="python mysql html css" aria-pressed="false">
+                <div class="project-image overflow-hidden"><img src="images/turf_booking.png" alt="Online Turf Booking System" class="w-full h-full object-cover"></div><div class="project-overlay"></div><span class="project-number project-number-animated">02</span><div class="project-card-copy"><p class="text-accent text-xs uppercase tracking-widest">Python / MySQL</p><h3>Online Turf Booking System</h3><p>A user-friendly platform for booking and managing turf facilities.</p><span class="project-select-hint">SELECT PROJECT ↗</span></div>
+              </button>
+              <button type="button" class="project-card project-reveal project-select-card" data-project="marvel" data-category="python database" data-tech="python django mysql" aria-pressed="false">
+                <div class="project-image overflow-hidden"><img src="images/library.png" alt="Library Management System" class="w-full h-full object-cover"></div><div class="project-overlay"></div><span class="project-number project-number-animated">03</span><div class="project-card-copy"><p class="text-accent text-xs uppercase tracking-widest">Python / Django / MySQL</p><h3>Library Management System</h3><p>A comprehensive library management solution with a user-friendly interface.</p><span class="project-select-hint">SELECT PROJECT ↗</span></div>
+              </button>
+              <button type="button" class="project-card project-reveal project-select-card" data-project="python" data-category="python web database" data-tech="python django mysql" aria-pressed="false">
+                <div class="project-image overflow-hidden"><img src="images/watch_project.png" alt="Watch Project" class="w-full h-full object-cover"></div><div class="project-overlay"></div><span class="project-number project-number-animated">04</span><div class="project-card-copy"><p class="text-accent text-xs uppercase tracking-widest">Python / Django / MySQL</p><h3>Watch Project</h3><p>A professional web application for online luxury watch sales.</p><span class="project-select-hint">SELECT PROJECT ↗</span></div>
+              </button>
             </div>
-
-            <div class="project-card project-reveal" data-project="watch">
-                <div class="project-image overflow-hidden">
-                    <img src="images/watch_project.png"
-                        alt="Watch Project"
-                        class="w-full h-full object-cover blur-[1.5px] scale-[1.01]">
-                </div>
-              <div class="project-overlay"></div>
-                <div class="absolute top-5 left-6 z-20">
-                    <span class="project-number project-number-animated">
-                        04
-                    </span>
-                </div>
-              <div class="absolute bottom-0 left-0 right-0 p-7">
-                <p class="text-accent text-xs uppercase tracking-widest">Python / Django / MySQL</p>
-                <h3 class="font-display text-3xl font-semibold mt-2">Watch Project</h3>
-                <p class="text-gray-400 text-sm mt-3">A professional web application for online luxury watch sales.</p>
-                <span class="view-tag inline-block mt-4 text-xs tracking-widest text-accent border-b border-accent pb-1">VIEW PROJECT ↗</span>
-              </div>
-            </div>
-
-          </div>
+            <p id="projectNoResults" class="hidden text-gray-400 text-center py-8">No projects match your search. Try another name or filter.</p>
+            <button type="button" id="loadMoreProjects" class="load-more-projects hidden">Load More Projects</button>
           </div>
         </div>
       </div>
@@ -1569,37 +1648,193 @@ mobileResumeBtn?.addEventListener("click",()=>{
 resumeClose?.addEventListener("click",closeResume);
 resumeBackdrop?.addEventListener("click",closeResume);
 
-/* ================= HANGING ID CARD INTERACTION ================= */
-const heroAvatar = document.getElementById("heroAvatar");
-const aboutPhoto = document.querySelector(".about-photo-image");
-if(heroAvatar && aboutPhoto){
-  heroAvatar.src = aboutPhoto.currentSrc || aboutPhoto.src;
+/* ================= INTERACTIVE ANIMATED ROBOT GUIDE ================= */
+const robotStage = document.querySelector(".robo-stage");
+const robotSpeechText = document.getElementById("robotSpeechText");
+const robotStatus = document.getElementById("robotStatus");
+const robotSpeakBtn = document.getElementById("robotSpeakBtn");
+const robotCharacter = document.getElementById("robotCharacter");
+const robotTopics = {
+  intro: {
+    html: "Hey! I'm Nandhan's digital sidekick. Choose About Nandhan, Skills, or Projects to learn about his portfolio.",
+    spoken: "Hey! I'm Nandhan's digital sidekick. Choose About Nandhan, Skills, or Projects to learn about his portfolio."
+  },
+  about: {
+    html: "Meet <strong>Nandhan M S</strong> — a Python Full Stack Developer who enjoys turning ideas into useful, user-friendly web applications.",
+    spoken: "Meet Nandhan M S, a Python Full Stack Developer who enjoys turning ideas into useful, user-friendly web applications."
+  },
+  skills: {
+    html: "Nandhan works with <strong>Python, Django, JavaScript, HTML, CSS, MySQL, and REST APIs</strong> to build full-stack applications.",
+    spoken: "Nandhan works with Python, Django, JavaScript, HTML, CSS, MySQL, and REST APIs to build full-stack applications."
+  },
+  projects: {
+    html: "Explore his <strong>Veterinary Appointment System, Turf Booking System, Library Management System, and Watch Project</strong>. Select Explore My Work to see the details.",
+    spoken: "Explore his Veterinary Appointment System, Turf Booking System, Library Management System, and Watch Project. Select Explore My Work to see the details."
+  }
+};
+let currentRobotTopic = "intro";
+let robotIsSpeaking = false;
+let robotAutoTimer = null;
+let robotSpeechRunId = 0;
+
+// The speech bubble intentionally starts blank. It is populated only after interaction.
+if (robotSpeechText) robotSpeechText.textContent = "";
+
+function showRobotTopic(topic, autoSpeak = false) {
+  const key = Object.prototype.hasOwnProperty.call(robotTopics, topic) ? topic : "intro";
+  currentRobotTopic = key;
+  if (autoSpeak) {
+    speakRobotText(robotTopics[key].spoken);
+    return;
+  }
+  stopRobotSpeech();
+  if (robotSpeechText) robotSpeechText.innerHTML = robotTopics[key].html;
+  if (robotStatus) robotStatus.textContent = "Playing selected topic with subtitles…";
 }
-const idCardStage = document.getElementById("idCardStage");
-const heroIdCard = document.getElementById("heroIdCard");
-const heroLanyard = document.querySelector(".idcard-lanyard");
-if(idCardStage && heroIdCard && window.matchMedia("(pointer:fine)").matches){
-  idCardStage.addEventListener("mouseenter",()=>{
-    /* hand the card off from the idle CSS pendulum to GSAP so hover-tilt never fights the keyframes */
-    heroIdCard.style.animationPlayState = "paused";
-    if(heroLanyard) heroLanyard.style.animationPlayState = "paused";
-  });
-  idCardStage.addEventListener("mousemove",e=>{
-    const r=idCardStage.getBoundingClientRect();
-    const x=(e.clientX-r.left)/r.width-.5;
-    const y=(e.clientY-r.top)/r.height-.5;
-    gsap.to(heroIdCard,{rotateY:x*9,rotateX:y*-5,rotate:7+x*3,y:-6+y*-6,duration:.7,ease:"power2.out",overwrite:true});
-    if(heroLanyard) gsap.to(heroLanyard,{xPercent:-50,rotation:4+x*2.5,duration:.9,ease:"power2.out",overwrite:true});
-  });
-  idCardStage.addEventListener("mouseleave",()=>{
-    gsap.to(heroIdCard,{rotateY:0,rotateX:0,rotate:7,y:0,duration:1.1,ease:"elastic.out(1,.65)",overwrite:true,
-      onComplete:()=>{ heroIdCard.style.animationPlayState = "running"; }});
-    if(heroLanyard) gsap.to(heroLanyard,{xPercent:-50,rotation:4,duration:1.1,ease:"elastic.out(1,.65)",overwrite:true,
-      onComplete:()=>{ heroLanyard.style.animationPlayState = "running"; }});
-  });
+
+function stopRobotSpeech() {
+  robotSpeechRunId++;
+  if (robotAutoTimer) window.clearTimeout(robotAutoTimer);
+  robotAutoTimer = null;
+  if ("speechSynthesis" in window) window.speechSynthesis.cancel();
+  robotIsSpeaking = false;
+  robotStage?.classList.remove("robot-speaking");
+  robotSpeakBtn?.setAttribute("aria-pressed", "false");
+  if (robotSpeakBtn) robotSpeakBtn.textContent = "▶ Speak text";
 }
-document.addEventListener("keydown",e=>{
-  if(e.key==="Escape") closeResume();
+
+// Uses browser text-to-speech where available, while independently revealing
+// words so captions still work even when speech boundary events are unsupported.
+function speakRobotText(text) {
+  stopRobotSpeech();
+  const runId = robotSpeechRunId;
+  const fullText = String(text || robotTopics[currentRobotTopic]?.spoken || "");
+  if (!robotSpeechText || !fullText) return;
+  const words = fullText.match(/\S+/g) || [];
+  const wordStarts = [];
+  let searchFrom = 0;
+  for (const word of words) {
+    const index = fullText.indexOf(word, searchFrom);
+    wordStarts.push(index);
+    searchFrom = index + word.length;
+  }
+  let lastRendered = -1;
+  let fallbackTimer = null;
+  let boundaryEventsSeen = false;
+  robotIsSpeaking = true;
+  robotStage?.classList.add("robot-speaking");
+  robotSpeakBtn?.setAttribute("aria-pressed", "true");
+  if (robotSpeakBtn) robotSpeakBtn.textContent = "■ Stop voice";
+  if (robotStatus) robotStatus.textContent = "Speaking — subtitles follow the voice.";
+  robotSpeechText.setAttribute("aria-label", "Robot subtitles");
+  const escapeHTML = value => value.replace(/[&<>"']/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]));
+  const renderWord = index => {
+    if (!robotIsSpeaking || runId !== robotSpeechRunId || index < 0 || index >= words.length || index <= lastRendered) return;
+    lastRendered = index;
+    const before = fullText.slice(0, wordStarts[index]).trimEnd();
+    const current = words[index];
+    robotSpeechText.innerHTML = escapeHTML(before) + (before ? " " : "") + '<strong class="robot-current-word">' + escapeHTML(current) + '</strong>';
+  };
+  const finish = () => {
+    if (runId !== robotSpeechRunId) return;
+    if (fallbackTimer) window.clearInterval(fallbackTimer);
+    fallbackTimer = null;
+    robotAutoTimer = null;
+    robotSpeechText.textContent = fullText;
+    robotIsSpeaking = false;
+    robotStage?.classList.remove("robot-speaking");
+    robotSpeakBtn?.setAttribute("aria-pressed", "false");
+    if (robotSpeakBtn) robotSpeakBtn.textContent = "↻ Replay voice";
+    if (robotStatus) robotStatus.textContent = "Finished. Choose another topic or replay.";
+  };
+  robotSpeechText.textContent = "";
+
+  if ("speechSynthesis" in window && "SpeechSynthesisUtterance" in window) {
+    const utterance = new SpeechSynthesisUtterance(fullText);
+    utterance.lang = "en-US";
+    utterance.rate = 0.92;
+    utterance.pitch = 1.0;
+    utterance.onboundary = event => {
+      if (runId !== robotSpeechRunId || !robotIsSpeaking) return;
+      if (event.name && event.name !== "word") return;
+      boundaryEventsSeen = true;
+      let index = 0;
+      for (let i = 0; i < wordStarts.length; i++) {
+        if (wordStarts[i] <= event.charIndex) index = i;
+        else break;
+      }
+      renderWord(index);
+    };
+    utterance.onend = () => {
+      if (runId !== robotSpeechRunId) return;
+      if (!boundaryEventsSeen && lastRendered < words.length - 1) {
+        // If a browser does not expose word boundaries, reveal remaining words
+        // over the actual utterance duration, then settle on the complete caption.
+        const remaining = words.length - 1 - lastRendered;
+        const interval = Math.max(180, Math.min(420, Math.round((words.length * 0.34 * 1000) / Math.max(words.length, 1))));
+        let count = 0;
+        const catchUp = () => {
+          if (runId !== robotSpeechRunId || !robotIsSpeaking) { clearInterval(fallbackTimer); return; }
+          renderWord(lastRendered + 1);
+          count++;
+          if (count >= remaining) { clearInterval(fallbackTimer); fallbackTimer = null; finish(); }
+        };
+        fallbackTimer = window.setInterval(catchUp, interval);
+        robotAutoTimer = fallbackTimer;
+      } else finish();
+    };
+    utterance.onerror = event => {
+      if (runId !== robotSpeechRunId) return;
+      if (event.error === "canceled" || event.error === "interrupted") return;
+      if (robotStatus) robotStatus.textContent = "Voice could not start. Check your browser's speech settings.";
+    };
+    // Some browsers have no boundary events; use a paced caption fallback only in that case.
+    fallbackTimer = window.setTimeout(() => {
+      if (runId !== robotSpeechRunId || boundaryEventsSeen || !robotIsSpeaking) return;
+      const estimatedDuration = Math.max(words.length * 0.34, 1.2);
+      let next = Math.max(0, lastRendered + 1);
+      fallbackTimer = window.setInterval(() => {
+        if (runId !== robotSpeechRunId || boundaryEventsSeen || !robotIsSpeaking) { clearInterval(fallbackTimer); return; }
+        renderWord(next++);
+        if (next >= words.length) { clearInterval(fallbackTimer); fallbackTimer = null; }
+      }, Math.round(estimatedDuration * 1000 / words.length));
+      robotAutoTimer = fallbackTimer;
+    }, 180);
+    robotAutoTimer = fallbackTimer;
+    window.speechSynthesis.speak(utterance);
+  } else {
+    if (robotStatus) robotStatus.textContent = "Voice is unavailable here; showing the text instead.";
+    let index = 0;
+    const showNext = () => {
+      if (runId !== robotSpeechRunId || !robotIsSpeaking) return;
+      renderWord(index++);
+      if (index < words.length) robotAutoTimer = window.setTimeout(showNext, 330);
+      else finish();
+    };
+    showNext();
+  }
+}
+
+document.querySelectorAll("[data-robot-topic]").forEach(button => {
+  button.addEventListener("click", () => showRobotTopic(button.dataset.robotTopic, true));
+});
+robotSpeakBtn?.addEventListener("click", () => {
+  if (robotIsSpeaking) stopRobotSpeech();
+  else speakRobotText(robotTopics[currentRobotTopic].spoken);
+});
+function greetFromRobot() {
+  showRobotTopic("intro", true);
+}
+robotCharacter?.addEventListener("click", greetFromRobot);
+robotCharacter?.addEventListener("keydown", event => {
+  if (event.key === "Enter" || event.key === " ") {
+    event.preventDefault();
+    greetFromRobot();
+  }
+});
+window.addEventListener("pagehide", stopRobotSpeech);
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape") closeResume();
 });
 
 /* ================= LOADER ================= */
@@ -1630,11 +1865,13 @@ function startHeroAnimation(){
   tl.from(".hero-description",{y:20,opacity:0,duration:.6,clearProps:"opacity,transform"},"-=.4");
   tl.from(".hero-buttons",{y:20,opacity:0,duration:.6,clearProps:"opacity,transform"},"-=.35");
 
-  /* ID card drops in on its lanyard and swings itself to rest, then hands off to the idle pendulum loop */
-  tl.fromTo("#idCardStage",
-    {opacity:0,y:-170,rotate:-5,scale:.93},
-    {opacity:1,y:0,rotate:0,scale:1,duration:1.7,ease:"elastic.out(1,.62)",transformOrigin:"50% 0%",clearProps:"transform"},
-  "-=1.1");
+  /* Robot guide rises into view after the hero text */
+  tl.fromTo(".robo-stage",
+    {opacity:0,y:45,scale:.94},
+    {opacity:1,y:0,scale:1,duration:1.05,ease:"back.out(1.4)",clearProps:"transform"},
+  "-=1.0");
+  tl.from(".robot-speech",{opacity:0,scale:.88,y:12,duration:.55,ease:"back.out(1.7)"},"-=.55");
+  tl.from(".robot-fact",{opacity:0,x:-18,stagger:.12,duration:.4,ease:"power2.out"},"-=.35");
 
   gsap.to(".hero-glow",{x:150,y:100,duration:6,repeat:-1,yoyo:true,ease:"sine.inOut"});
 }
@@ -1853,7 +2090,7 @@ for(let i=0;i<24;i++){
 
 /* ================= PROJECT MODAL ================= */
 const projectData = {
-  veterinary:{
+  vet:{
     title:"Online Veterinary Appointment System",
     description:"A complete online veterinary appointment management experience for pet owners and administrators.",
     tags:["PHP","MYSQL","HTML","CSS","JAVASCRIPT"],
@@ -1861,15 +2098,15 @@ const projectData = {
     github:"https://github.com/msnandhan516-coder/Online-Veterinary-Appointment-System",
     liveDemo:""
   },
-  turf:{
+  shop:{
     title:"Online Turf Booking System",
     description:"A user-friendly platform for booking and managing turf facilities.",
     tags:["PYTHON","MYSQL"],
     features:["Turf booking","Facility management","Booking workflow","Database management"],
     github:"https://github.com/msnandhan516-coder/Online-Turf-Booking-Sysytem",
-    liveDemo:"https://online-turf-booking-sysytem.onrender.com"
+    liveDemo:""
   },
-  library:{
+  marvel:{
     title:"Library Management System",
     description:"A comprehensive library management solution with user-friendly interface.",
     tags:["PYTHON","MYSQL"],
@@ -1877,13 +2114,13 @@ const projectData = {
     github:"https://github.com/msnandhan516-coder/Library-Management-System",
     liveDemo:""
   },
-  watch:{
+  python:{
     title:"Watch Project",
     description:"A professional web application for online luxury watch sales.",
     tags:["PYTHON","DJANGO","MYSQL"],
     features:["Product browsing","Watch catalog","Online shopping experience","Database integration"],
     github:"https://github.com/msnandhan516-coder/Watch_project",
-    liveDemo:"https://watch-project-dsg5.onrender.com"
+    liveDemo:""
   }
 };
 
@@ -1894,7 +2131,93 @@ const modalTags = document.getElementById("modalTags");
 const modalFeatures = document.getElementById("modalFeatures");
 const modalBox = document.getElementById("modalBox");
 
-document.querySelectorAll(".project-card").forEach(card=>{
+/* ================= PROJECT EXPLORER ================= */
+const explorerCards = Array.from(document.querySelectorAll(".project-select-card"));
+const projectSearch = document.getElementById("projectSearch");
+const projectFilterButtons = Array.from(document.querySelectorAll(".project-filter"));
+const projectResultsCount = document.getElementById("projectResultsCount");
+const projectNoResults = document.getElementById("projectNoResults");
+const featuredImage = document.getElementById("featuredProjectImage");
+const featuredTitle = document.getElementById("featuredProjectTitle");
+const featuredDescription = document.getElementById("featuredProjectDescription");
+const featuredTags = document.getElementById("featuredProjectTags");
+const featuredGithub = document.getElementById("featuredGithubLink");
+const featuredDetailsBtn = document.getElementById("featuredDetailsBtn");
+let activeProjectFilter = "all";
+let projectDisplayLimit = 6;
+let selectedProjectCard = explorerCards.find(card => card.dataset.project === "vet") || explorerCards[0];
+function selectFeaturedProject(card, scrollToFeature = false) {
+  if (!card) return;
+  selectedProjectCard = card;
+  const key = card.dataset.project;
+  const data = projectData[key];
+  if (!data) return;
+  featuredTitle.textContent = data.title;
+  featuredDescription.textContent = data.description;
+  const img = card.querySelector("img");
+  if (img) {
+    featuredImage.style.opacity = "0.25";
+    const updateImage = () => { featuredImage.src = img.getAttribute("src"); featuredImage.alt = data.title + " preview"; featuredImage.style.opacity = "1"; };
+    featuredImage.onload = () => { featuredImage.style.opacity = "1"; };
+    updateImage();
+  }
+  featuredTags.replaceChildren(...data.tags.map(tag => { const span = document.createElement("span"); span.textContent = tag; return span; }));
+  if (data.github) { featuredGithub.href = data.github; featuredGithub.classList.remove("hidden"); }
+  else { featuredGithub.removeAttribute("href"); featuredGithub.classList.add("hidden"); }
+  explorerCards.forEach(item => { const active = item === card; item.classList.toggle("is-selected", active); item.setAttribute("aria-pressed", String(active)); });
+  featuredDetailsBtn.onclick = () => {
+    if (typeof modalTitle === "undefined" || !modalTitle) return;
+    modalTitle.textContent = data.title;
+    modalDescription.textContent = data.description;
+    modalTags.innerHTML = data.tags.map(t => `<span class="border border-white/15 px-3 py-2 text-xs tracking-wider text-accent rounded-full">${t}</span>`).join("");
+    modalFeatures.innerHTML = data.features.map(f => `<div>— ${f}</div>`).join("");
+    const githubAction = document.getElementById("modalGithubAction");
+    const liveAction = document.getElementById("modalLiveDemo");
+    if (data.github) { githubAction.href = data.github; githubAction.classList.remove("hidden"); } else { githubAction.removeAttribute("href"); githubAction.classList.add("hidden"); }
+    if (data.liveDemo) { liveAction.disabled = false; liveAction.classList.remove("disabled"); liveAction.onclick = () => window.open(data.liveDemo,"_blank","noopener,noreferrer"); } else { liveAction.disabled = true; liveAction.classList.add("disabled"); }
+    const projectModal = document.getElementById("projectModal");
+    projectModal?.classList.remove("hidden"); projectModal?.classList.add("flex"); document.body.style.overflow = "hidden";
+  };
+  if (scrollToFeature) {
+    // After selecting a card, bring the featured panel into view on desktop and mobile.
+    // Wait one frame so the updated title, tags, and image have been applied first.
+    window.requestAnimationFrame(() => {
+      window.setTimeout(() => {
+        document.getElementById("featuredProject")?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 60);
+    });
+  }
+}
+function filterProjectCards() {
+  const query = (projectSearch?.value || "").trim().toLowerCase();
+  const matches = explorerCards.filter(card => {
+    const haystack = [card.innerText, card.dataset.tech, projectData[card.dataset.project]?.description, projectData[card.dataset.project]?.tags.join(" ")].join(" ").toLowerCase();
+    const matchesQuery = !query || haystack.includes(query);
+    const categories = (card.dataset.category || "").split(/\s+/);
+    const matchesFilter = activeProjectFilter === "all" || categories.includes(activeProjectFilter);
+    return matchesQuery && matchesFilter;
+  });
+  matches.forEach((card, index) => { card.hidden = index >= projectDisplayLimit; });
+  explorerCards.filter(card => !matches.includes(card)).forEach(card => { card.hidden = true; });
+  if (projectResultsCount) projectResultsCount.textContent = `${matches.length} project${matches.length === 1 ? "" : "s"}`;
+  projectNoResults?.classList.toggle("hidden", matches.length !== 0);
+  const loadMore = document.getElementById("loadMoreProjects");
+  if (loadMore) loadMore.classList.toggle("hidden", matches.length <= projectDisplayLimit);
+}
+explorerCards.forEach(card => card.addEventListener("click", () => selectFeaturedProject(card, true)));
+projectSearch?.addEventListener("input", () => { projectDisplayLimit = 6; filterProjectCards(); });
+document.getElementById("loadMoreProjects")?.addEventListener("click", () => { projectDisplayLimit += 6; filterProjectCards(); });
+projectFilterButtons.forEach(button => button.addEventListener("click", () => {
+  activeProjectFilter = button.dataset.filter;
+  projectDisplayLimit = 6;
+  projectFilterButtons.forEach(item => { const active = item === button; item.classList.toggle("active", active); item.setAttribute("aria-pressed", String(active)); });
+  filterProjectCards();
+}));
+selectFeaturedProject(selectedProjectCard);
+filterProjectCards();
+
+
+document.querySelectorAll(".project-card:not(.project-select-card)").forEach(card=>{
   card.addEventListener("click", ()=>{
     const data = projectData[card.dataset.project];
     modalTitle.textContent = data.title;
