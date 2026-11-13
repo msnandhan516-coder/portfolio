@@ -503,7 +503,6 @@
   /* Project explorer: featured selection, search and filters */
   .project-explorer{min-width:0}
   .featured-project{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:clamp(18px,3vw,38px);align-items:center;padding:clamp(16px,3vw,30px);border:1px solid rgba(0,229,255,.32);border-radius:26px;background:linear-gradient(120deg,rgba(9,25,45,.96),rgba(15,13,34,.96));box-shadow:0 0 35px rgba(0,229,255,.07);transition:border-color .3s,box-shadow .3s}
-  #featuredProject{scroll-margin-top:100px}
   .featured-project-image{height:clamp(220px,28vw,360px);overflow:hidden;border-radius:17px;border:1px solid rgba(255,255,255,.12);background:#08111f}
   .featured-project-image img{width:100%;height:100%;object-fit:cover;display:block;transition:opacity .2s,transform .5s}
   .featured-project-copy{min-width:0}
@@ -600,9 +599,10 @@
   .resume-modal-box{
     background:#090d15;border:1px solid rgba(255,255,255,.12);
     box-shadow:0 40px 120px rgba(0,0,0,.7),0 0 70px rgba(0,229,255,.08);
+    display:flex;flex-direction:column;height:min(94vh,920px);
   }
   .resume-toolbar{
-    height:68px;padding:0 18px 0 22px;
+    height:68px;flex:0 0 68px;padding:0 18px 0 22px;
     display:flex;align-items:center;justify-content:space-between;
     border-bottom:1px solid rgba(255,255,255,.08);
     background:rgba(10,14,22,.92);backdrop-filter:blur(20px);
@@ -620,7 +620,7 @@
   .resume-action:hover{color:#00e5ff;border-color:rgba(0,229,255,.45);background:rgba(0,229,255,.06);transform:translateY(-2px)}
   .resume-download{color:#04141a;background:#00e5ff;border-color:#00e5ff;font-weight:600}
   .resume-download:hover{color:#04141a;background:#37edff;box-shadow:0 10px 30px rgba(0,229,255,.25)}
-  .resume-frame-wrap{height:calc(100% - 68px);background:#1a1d24}
+  .resume-frame-wrap{height:100%;min-height:0;background:#1a1d24}
   .resume-frame-wrap iframe{width:100%;height:100%;border:0;display:block}
   /* ================= FOOTER — STRICT GRID ALIGNMENT ================= */
   .site-footer{
@@ -831,7 +831,7 @@
 
 
   /* ================= RESUME PREVIEW — NO PDF EDITOR ================= */
-  .resume-preview-scroll{height:min(82vh,820px);overflow:auto;padding:34px;background:radial-gradient(circle at 15% 15%,rgba(0,229,255,.06),transparent 30%),#151922}
+  .resume-preview-scroll{flex:1;min-height:0;overflow:hidden;background:#151922}
   .resume-sheet{width:min(850px,100%);margin:0 auto;min-height:1080px;padding:52px 58px;background:#f7f7f5;color:#151820;box-shadow:0 30px 90px rgba(0,0,0,.45);border-radius:4px;font-family:'DM Sans',sans-serif}
   .resume-sheet-header{display:flex;justify-content:space-between;gap:35px;align-items:flex-start}
   .resume-sheet-header h2{margin:0;font:700 38px 'Space Grotesk',sans-serif;letter-spacing:-.04em}
@@ -864,7 +864,7 @@
   .projects-scroll .project-card{min-height:400px}
   @media(max-width:900px){.footer-grid{grid-template-columns:1.5fr 1fr 1fr;gap:38px 28px}.footer-build{grid-column:1/-1}}
   @media(max-width:700px){
-    .resume-preview-scroll{padding:14px}.resume-sheet{padding:30px 24px;min-height:auto}
+    .resume-sheet{padding:30px 24px;min-height:auto}
     .resume-sheet-header{flex-direction:column}.resume-contact{align-items:flex-start;text-align:left}.resume-two-col{grid-template-columns:1fr}
   }
   @media(max-width:640px){
@@ -953,6 +953,72 @@
   .robo-stage.robot-speaking .robot-mouth-open{opacity:1!important;animation:robotTalk .16s ease-in-out infinite alternate!important}
   .robo-stage.robot-speaking .robot-arm-left{animation:robotWave .48s ease-in-out infinite!important}
   @media(prefers-reduced-motion:reduce){.robot-wrap,.robo-aura,.robo-orbit,.robot-eye,.robot-mouth,.robot-antenna-light,.robot-arm-left,.robot-shadow,.robot-speech,.robot-fact{animation-duration:4s!important;animation-iteration-count:infinite!important}}
+
+
+
+  /* ================= HORIZONTAL STICKY STACKING PROJECT CARDS ================= */
+  #projects .projects-intro{margin-top:14px;color:#9aa9bd;font-size:14px;line-height:1.7}
+  #projects .projects-scroll-shell{position:relative;width:100%}
+  #projects .projects-viewport{width:100%;overflow:hidden;position:relative;isolation:isolate}
+  #projects .projects-track{display:flex;align-items:stretch;width:max-content;padding:30px 0 38px;transform:translate3d(0,0,0);will-change:transform}
+  #projects .project-stack-card{
+    position:relative;flex:0 0 min(58vw,680px);min-height:438px;margin-right:-14vw;
+    display:flex;flex-direction:column;overflow:hidden;border:1px solid rgba(148,163,184,.22);
+    border-radius:23px;background:linear-gradient(145deg,rgba(17,29,49,.99),rgba(12,17,31,.99));
+    box-shadow:0 18px 48px rgba(0,0,0,.34);z-index:1;
+    transform:translate3d(0,7px,0) scale(.94);opacity:.84;
+    backface-visibility:hidden;transition:opacity .18s linear,border-color .18s linear,box-shadow .18s linear;
+  }
+  #projects .project-stack-card:last-child{margin-right:0}
+  #projects .project-stack-card.is-active{
+    z-index:50!important;transform:translate3d(0,0,0) scale(1);opacity:1;
+    border-color:rgba(0,229,255,.9);
+    box-shadow:0 0 0 1px rgba(0,229,255,.2),0 0 24px rgba(0,229,255,.2),0 24px 55px rgba(0,0,0,.5);
+  }
+  #projects .project-stack-card.is-before,#projects .project-stack-card.is-after{z-index:8;transform:translate3d(0,7px,0) scale(.94);opacity:.84}
+  #projects .project-stack-media{height:205px;flex:0 0 205px;position:relative;overflow:hidden;background:linear-gradient(135deg,#10243b,#211b42)}
+  #projects .project-stack-media:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(4,9,18,.04),rgba(4,9,18,.4));pointer-events:none}
+  #projects .project-stack-media img{width:100%;height:100%;object-fit:cover;display:block}
+  #projects .project-stack-index{position:absolute;z-index:2;top:14px;left:15px;padding:7px 11px;border:1px solid rgba(103,232,249,.5);border-radius:999px;background:rgba(2,8,18,.76);color:#a5f3fc;font:600 10px 'JetBrains Mono',monospace;letter-spacing:.08em}
+  #projects .project-stack-label{position:absolute;z-index:2;right:15px;bottom:13px;padding:6px 10px;border:1px solid rgba(255,255,255,.22);border-radius:999px;background:rgba(2,8,18,.7);color:#d8e8f6;font:500 8px 'JetBrains Mono',monospace;letter-spacing:.1em}
+  #projects .project-stack-info{flex:1;display:flex;flex-direction:column;justify-content:space-between;gap:15px;padding:20px 23px 22px}
+  #projects .project-stack-kicker{color:#67e8f9;font:600 9px 'JetBrains Mono',monospace;letter-spacing:.15em}
+  #projects .project-stack-info h3{margin-top:8px;color:#f8fafc;font:700 clamp(23px,2.5vw,32px)/1.12 'Space Grotesk',sans-serif;letter-spacing:-.04em}
+  #projects .project-stack-info p{max-width:620px;margin-top:10px;color:#aab8ca;font-size:11.5px;line-height:1.7}
+  #projects .project-stack-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:13px}
+  #projects .project-stack-tags span{padding:5px 9px;border:1px solid rgba(0,229,255,.23);border-radius:999px;background:rgba(0,229,255,.055);color:#bcefff;font-size:9px}
+  #projects .project-stack-actions{display:flex;flex-wrap:wrap;align-items:center;gap:9px}
+  #projects .project-stack-muted{color:#7f8ca2;font-size:10px}
+  #projects .case-study-button{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:36px;padding:8px 13px;border-radius:999px;font-size:10px;font-weight:650;text-decoration:none;transition:transform .2s,box-shadow .2s,border-color .2s,background .2s}
+  #projects .case-study-button:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,229,255,.12)}
+  #projects .case-study-primary{color:#04111d;background:linear-gradient(100deg,#00e5ff,#8b5cf6)}
+  #projects .case-study-secondary{color:#c9f5ff;border:1px solid rgba(0,229,255,.38);background:rgba(0,229,255,.055)}
+  #projects .case-study-secondary:hover{border-color:rgba(0,229,255,.8);background:rgba(0,229,255,.1)}
+  #projects .projects-scroll-footer{display:flex;align-items:center;gap:16px;max-width:680px;margin:7px auto 0;color:#7d8ca3}
+  #projects .projects-scroll-hint{white-space:nowrap;font:600 9px 'JetBrains Mono',monospace;letter-spacing:.12em}
+  #projects .projects-progress-track{height:2px;flex:1;overflow:hidden;background:rgba(148,163,184,.2)}
+  #projects .projects-progress-track span{display:block;width:16.666%;height:100%;background:linear-gradient(90deg,#00e5ff,#8b5cf6);box-shadow:0 0 10px #00e5ff}
+  #projects .projects-count{white-space:nowrap;font:500 10px 'JetBrains Mono',monospace}
+  #projects .projects-count b{color:#67e8f9}
+  @media(max-width:900px){
+    #projects .projects-viewport{overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain}
+    #projects .projects-viewport::-webkit-scrollbar{display:none}
+    #projects .projects-track{padding:22px 7vw 26px;gap:16px}
+    #projects .project-stack-card{flex:0 0 78vw;max-width:560px;min-height:450px;margin-right:0;opacity:1;transform:none;scroll-snap-align:center}
+    #projects .project-stack-card.is-active{transform:translateY(-3px)}
+    #projects .project-stack-media{height:195px;flex-basis:195px}
+    #projects .projects-scroll-footer{margin:7px 7vw 0}
+  }
+  @media(max-width:600px){
+    #projects .project-stack-card{min-height:440px;border-radius:19px}
+    #projects .project-stack-media{height:175px;flex-basis:175px}
+    #projects .project-stack-info{padding:18px 17px;gap:14px}
+    #projects .project-stack-info h3{font-size:24px}
+    #projects .project-stack-info p{font-size:11px}
+    #projects .projects-scroll-hint{font-size:7px;letter-spacing:.08em}
+    #projects .projects-scroll-footer{gap:9px}
+  }
+  @media(prefers-reduced-motion:reduce){#projects .project-stack-card{transition:none}}
 
 </style>
 </head>
@@ -1179,15 +1245,15 @@
               <div class="mt-8 space-y-4">
                 <div class="flex justify-between border-b border-white/10 pb-3">
                   <span class="text-gray-500">Frontend</span>
-                  <span>React / HTML / CSS / JS</span>
+                  <span>HTML / CSS / JS</span>
                 </div>
                 <div class="flex justify-between border-b border-white/10 pb-3">
                   <span class="text-gray-500">Backend</span>
-                  <span>Django / REST / PHP</span>
+                  <span>Python / PHP</span>
                 </div>
                 <div class="flex justify-between">
                   <span class="text-gray-500">Database</span>
-                  <span>PostgreSQL / Sqlite </span>
+                  <span>MySQL</span>
                 </div>
               </div>
             </div>
@@ -1381,55 +1447,147 @@
     <div class="max-w-7xl mx-auto px-6 section-body">
       <div class="grid lg:grid-cols-12 gap-10">
         <div class="lg:col-span-2"><div class="section-number">04</div></div>
-
-        <div class="lg:col-span-10">
+        <div class="lg:col-span-10 min-w-0">
           <p class="text-accent uppercase tracking-[5px] text-sm reveal-up">Selected Work</p>
           <h2 class="font-display text-5xl md:text-7xl font-semibold mt-5 reveal-up">Things I've Built</h2>
+          <p class="projects-intro">A closer look at the applications and tools I've built.</p>
 
-          <div class="project-explorer mt-12">
-            <div class="featured-project" id="featuredProject" aria-live="polite">
-              <div class="featured-project-image"><img id="featuredProjectImage" src="images/veterinary2.png" alt="Online Veterinary Appointment System preview"></div>
-              <div class="featured-project-copy">
-                <span class="featured-kicker">FEATURED PROJECT</span>
-                <h3 id="featuredProjectTitle">Online Veterinary Appointment System</h3>
-                <p id="featuredProjectDescription">Online veterinary appointment and service management platform.</p>
-                <div id="featuredProjectTags" class="featured-tags"><span>PHP</span><span>MySQL</span><span>JavaScript</span></div>
-                <div class="featured-actions"><button type="button" id="featuredDetailsBtn" class="featured-action-primary">Explore Project ↗</button><a id="featuredGithubLink" class="featured-action-secondary" href="https://github.com/msnandhan516-coder/Online-Veterinary-Appointment-System" target="_blank" rel="noopener noreferrer">View Code ↗</a></div>
+          <div class="projects-scroll-shell mt-12" id="projectsScrollShell">
+            <div class="projects-viewport" id="projectsViewport">
+              <div class="projects-track" id="projectsTrack">
+
+                <article class="project-stack-card is-active">
+                  <div class="project-stack-media">
+                    <img src="images/depsentry.svg" alt="DepSentry dependency security scanner preview" loading="eager" fetchpriority="high">
+                    <span class="project-stack-index">01 / 06</span>
+                    <span class="project-stack-label">FLAGSHIP · SOFTWARE SECURITY</span>
+                  </div>
+                  <div class="project-stack-info">
+                    <div>
+                      <span class="project-stack-kicker">SOFTWARE SUPPLY CHAIN SECURITY</span>
+                      <h3>DepSentry</h3>
+                      <p>A dependency security platform that checks for typosquatting, known vulnerabilities, maintenance concerns and license compliance, then provides evidence-based risk assessments and policy recommendations.</p>
+                      <div class="project-stack-tags"><span>Python</span><span>Django</span><span>DRF</span><span>React</span><span>PostgreSQL</span></div>
+                    </div>
+                    <div class="project-stack-actions">
+                      <span class="project-stack-muted">Live demo coming soon</span>
+                      <span class="project-stack-muted">GitHub link coming soon</span>
+                    </div>
+                  </div>
+                </article>
+
+                <article class="project-stack-card">
+                  <div class="project-stack-media">
+                    <img src="images/library.png" alt="Library Management System preview" loading="lazy">
+                    <span class="project-stack-index">02 / 06</span>
+                    <span class="project-stack-label">MANAGEMENT SYSTEM</span>
+                  </div>
+                  <div class="project-stack-info">
+                    <div>
+                      <span class="project-stack-kicker">WEB APPLICATION</span>
+                      <h3>Library Management System</h3>
+                      <p>A library platform for managing book catalogues, user accounts, borrowing and returns, with separate experiences for readers and librarians.</p>
+                      <div class="project-stack-tags"><span>Python</span><span>Django</span><span>MySQL</span><span>JavaScript</span><span>Bootstrap</span></div>
+                    </div>
+                    <div class="project-stack-actions">
+                      <span class="project-stack-muted">Live demo unavailable</span>
+                      <a class="case-study-button case-study-secondary" href="https://github.com/msnandhan516-coder/Library-Management-System" target="_blank" rel="noopener noreferrer">GitHub Repository ↗</a>
+                    </div>
+                  </div>
+                </article>
+
+                <article class="project-stack-card">
+                  <div class="project-stack-media">
+                    <img src="images/pos_billing.svg" alt="POS Billing Software preview" loading="lazy">
+                    <span class="project-stack-index">03 / 06</span>
+                    <span class="project-stack-label">BILLING & SALES</span>
+                  </div>
+                  <div class="project-stack-info">
+                    <div>
+                      <span class="project-stack-kicker">BUSINESS APPLICATION</span>
+                      <h3>POS Billing Software</h3>
+                      <p>A point-of-sale application designed to simplify product management, billing operations and transaction handling for everyday sales workflows.</p>
+                      <div class="project-stack-tags"><span>Python</span><span>Django</span><span>JavaScript</span><span>SQLite</span></div>
+                    </div>
+                    <div class="project-stack-actions">
+                      <a class="case-study-button case-study-primary" href="https://pos-billing-software-b3w2.onrender.com" target="_blank" rel="noopener noreferrer">Live Demo ↗</a>
+                      <a class="case-study-button case-study-secondary" href="https://github.com/msnandhan516-coder/POS-Billing-Software" target="_blank" rel="noopener noreferrer">GitHub Repository ↗</a>
+                    </div>
+                  </div>
+                </article>
+
+                <article class="project-stack-card">
+                  <div class="project-stack-media">
+                    <img src="images/veterinary2.png" alt="Pet Clinic Portal preview" loading="lazy">
+                    <span class="project-stack-index">04 / 06</span>
+                    <span class="project-stack-label">VETERINARY SERVICES</span>
+                  </div>
+                  <div class="project-stack-info">
+                    <div>
+                      <span class="project-stack-kicker">APPOINTMENT PLATFORM</span>
+                      <h3>Pet Clinic Portal</h3>
+                      <p>A veterinary appointment portal that helps pet owners explore clinic services and request appointments, with tools for clinic-side administration.</p>
+                      <div class="project-stack-tags"><span>PHP</span><span>MySQL</span><span>JavaScript</span><span>HTML</span><span>CSS</span></div>
+                    </div>
+                    <div class="project-stack-actions">
+                      <a class="case-study-button case-study-primary" href="https://vetcare-online-system.onrender.com/" target="_blank" rel="noopener noreferrer">Live Demo ↗</a>
+                      <a class="case-study-button case-study-secondary" href="https://github.com/msnandhan516-coder/Online-Veterinary-Appointment-System" target="_blank" rel="noopener noreferrer">GitHub Repository ↗</a>
+                    </div>
+                  </div>
+                </article>
+
+                <article class="project-stack-card">
+                  <div class="project-stack-media">
+                    <img src="images/watch_project.png" alt="Watch project website preview" loading="lazy">
+                    <span class="project-stack-index">05 / 06</span>
+                    <span class="project-stack-label">WATCH PROJECT</span>
+                  </div>
+                  <div class="project-stack-info">
+                    <div>
+                      <span class="project-stack-kicker">WEB PROJECT</span>
+                      <h3>Watch Project</h3>
+                      <p>A watch-focused website project presented through a dedicated product experience and responsive interface.</p>
+                      <div class="project-stack-tags"><span>Web Development</span><span>Responsive UI</span></div>
+                    </div>
+                    <div class="project-stack-actions">
+                      <a class="case-study-button case-study-primary" href="https://watch-project-dsg5.onrender.com/" target="_blank" rel="noopener noreferrer">Live Demo ↗</a>
+                      <a class="case-study-button case-study-secondary" href="https://github.com/msnandhan516-coder/Watch_project" target="_blank" rel="noopener noreferrer">GitHub Repository ↗</a>
+                    </div>
+                  </div>
+                </article>
+
+                <article class="project-stack-card">
+                  <div class="project-stack-media">
+                    <img src="images/turf_booking.png" alt="Online Turf Booking System preview" loading="lazy">
+                    <span class="project-stack-index">06 / 06</span>
+                    <span class="project-stack-label">BOOKING PLATFORM</span>
+                  </div>
+                  <div class="project-stack-info">
+                    <div>
+                      <span class="project-stack-kicker">ONLINE BOOKING</span>
+                      <h3>Online Turf Booking System</h3>
+                      <p>A web-based turf booking project that provides an online experience for discovering and booking sports turf facilities.</p>
+                      <div class="project-stack-tags"><span>Web Development</span><span>Booking System</span></div>
+                    </div>
+                    <div class="project-stack-actions">
+                      <a class="case-study-button case-study-primary" href="https://online-turf-booking-sysytem.onrender.com/" target="_blank" rel="noopener noreferrer">Live Demo ↗</a>
+                      <a class="case-study-button case-study-secondary" href="https://github.com/msnandhan516-coder/Online-Turf-Booking-Sysytem" target="_blank" rel="noopener noreferrer">GitHub Repository ↗</a>
+                    </div>
+                  </div>
+                </article>
+
               </div>
             </div>
-            <div class="project-tools">
-              <label class="project-search-wrap"><span aria-hidden="true">⌕</span><input id="projectSearch" type="search" placeholder="Search projects by name or technology…" aria-label="Search projects"></label>
-              <div class="project-filters" role="group" aria-label="Filter projects by category">
-                <button type="button" class="project-filter active" data-filter="all" aria-pressed="true">All Projects</button>
-                <button type="button" class="project-filter" data-filter="web" aria-pressed="false">Web Development</button>
-                <button type="button" class="project-filter" data-filter="python" aria-pressed="false">Python / Django</button>
-                <button type="button" class="project-filter" data-filter="database" aria-pressed="false">Database</button>
-              </div>
+            <div class="projects-scroll-footer">
+              <span class="projects-scroll-hint">SCROLL TO CYCLE THROUGH PROJECTS</span>
+              <div class="projects-progress-track"><span id="projectsProgress"></span></div>
+              <span class="projects-count"><b id="projectsCurrent">01</b> / 06</span>
             </div>
-            <div class="project-results-heading"><span id="projectResultsCount">4 projects</span><span>Choose a card to feature it above</span></div>
-            <div class="projects-grid" id="projectExplorerGrid">
-              <button type="button" class="project-card project-reveal project-select-card is-selected" data-project="vet" data-category="web database" data-tech="php mysql html css javascript" aria-pressed="true">
-                <div class="project-image overflow-hidden"><img src="images/veterinary2.png" alt="Online Veterinary Appointment System" class="w-full h-full object-cover"></div><div class="project-overlay"></div><span class="project-number project-number-animated">01</span><div class="project-card-copy"><p class="text-accent text-xs uppercase tracking-widest">PHP / MySQL / JS</p><h3>Online Veterinary Appointment System</h3><p>Online veterinary appointment and service management platform.</p><span class="project-select-hint">SELECT PROJECT ↗</span></div>
-              </button>
-              <button type="button" class="project-card project-reveal project-select-card" data-project="shop" data-category="web database" data-tech="python mysql html css" aria-pressed="false">
-                <div class="project-image overflow-hidden"><img src="images/turf_booking.png" alt="Online Turf Booking System" class="w-full h-full object-cover"></div><div class="project-overlay"></div><span class="project-number project-number-animated">02</span><div class="project-card-copy"><p class="text-accent text-xs uppercase tracking-widest">Python / MySQL</p><h3>Online Turf Booking System</h3><p>A user-friendly platform for booking and managing turf facilities.</p><span class="project-select-hint">SELECT PROJECT ↗</span></div>
-              </button>
-              <button type="button" class="project-card project-reveal project-select-card" data-project="marvel" data-category="python database" data-tech="python django mysql" aria-pressed="false">
-                <div class="project-image overflow-hidden"><img src="images/library.png" alt="Library Management System" class="w-full h-full object-cover"></div><div class="project-overlay"></div><span class="project-number project-number-animated">03</span><div class="project-card-copy"><p class="text-accent text-xs uppercase tracking-widest">Python / Django / MySQL</p><h3>Library Management System</h3><p>A comprehensive library management solution with a user-friendly interface.</p><span class="project-select-hint">SELECT PROJECT ↗</span></div>
-              </button>
-              <button type="button" class="project-card project-reveal project-select-card" data-project="python" data-category="python web database" data-tech="python django mysql" aria-pressed="false">
-                <div class="project-image overflow-hidden"><img src="images/watch_project.png" alt="Watch Project" class="w-full h-full object-cover"></div><div class="project-overlay"></div><span class="project-number project-number-animated">04</span><div class="project-card-copy"><p class="text-accent text-xs uppercase tracking-widest">Python / Django / MySQL</p><h3>Watch Project</h3><p>A professional web application for online luxury watch sales.</p><span class="project-select-hint">SELECT PROJECT ↗</span></div>
-              </button>
-            </div>
-            <p id="projectNoResults" class="hidden text-gray-400 text-center py-8">No projects match your search. Try another name or filter.</p>
-            <button type="button" id="loadMoreProjects" class="load-more-projects hidden">Load More Projects</button>
           </div>
         </div>
       </div>
     </div>
-  </section>
-
-  <!-- ============ CODE SECTION (between projects & contact) ============ -->
+  </section>\n\n  <!-- ============ CODE SECTION (between projects & contact) ============ -->
   <section id="code" class="section py-32 overflow-hidden relative">
     <div class="section-grid"></div>
     <div class="section-glow" style="width:560px;height:560px;top:20%;left:50%;transform:translateX(-50%);background:rgba(0,229,255,.06)"></div>
@@ -1550,7 +1708,7 @@
         </div>
       </div>
       <div class="flex items-center gap-2">
-        <a href="Nandhan_MS_CV.pdf" download="Nandhan_MS_CV.pdf" class="resume-action resume-download">
+        <a href="Nandhan_MS_Resume_.pdf" download="Nandhan_MS_Resume_.pdf" class="resume-action resume-download">
           <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
             <path d="M12 3v12m0 0 4-4m-4 4-4-4M5 21h14"/>
           </svg>
@@ -1565,8 +1723,8 @@
     </div>
 
     <div class="resume-preview-scroll">
-      <div class="resume-frame-wrap" style="height:100%;min-height:780px;">
-        <iframe id="resumeFrame" src="Nandhan_MS_CV.pdf#view=FitH" title="Nandhan M S CV" style="width:100%;height:100%;min-height:780px;border:0;display:block;background:#fff;"></iframe>
+      <div class="resume-frame-wrap">
+        <iframe id="resumeFrame" src="Nandhan_MS_Resume_.pdf#view=FitH" title="Nandhan M S Resume" style="width:100%;height:100%;border:0;display:block;background:#fff;"></iframe>
       </div>
     </div>
   </div>
@@ -1932,13 +2090,200 @@ ScrollTrigger.create({
   onUpdate: self => progressLine.style.height = (self.progress*100)+"%"
 });
 
-/* ================= PROJECTS ================= */
-gsap.utils.toArray(".project-reveal").forEach((el,i)=>{
-  gsap.from(el,{
-    y:90, opacity:0, scale:.96, duration:1, delay:(i%2)*.15, ease:"power4.out",
-    scrollTrigger:{trigger:el, start:"top 88%", toggleActions:"play none none reverse"}
+/* ================= SMOOTH CIRCULAR HORIZONTAL PROJECT STACK ================= */
+(() => {
+  const shell = document.getElementById("projectsScrollShell");
+  const viewport = document.getElementById("projectsViewport");
+  const track = document.getElementById("projectsTrack");
+  const progress = document.getElementById("projectsProgress");
+  const current = document.getElementById("projectsCurrent");
+  if (!shell || !viewport || !track || !window.gsap || !window.ScrollTrigger) return;
+
+  gsap.registerPlugin(ScrollTrigger);
+  const originals = Array.from(track.querySelectorAll(":scope > .project-stack-card"));
+  const count = originals.length;
+  if (!count) return;
+
+  const mm = gsap.matchMedia();
+
+  // Desktop: three identical sets make one complete circular pass seamless.
+  mm.add("(min-width: 901px) and (prefers-reduced-motion: no-preference)", () => {
+    track.querySelectorAll("[data-loop-copy='true']").forEach(node => node.remove());
+    originals.forEach((card, index) => { card.dataset.projectIndex = String(index); });
+
+    for (let set = 0; set < 2; set++) {
+      originals.forEach((card, index) => {
+        const clone = card.cloneNode(true);
+        clone.dataset.loopCopy = "true";
+        clone.dataset.projectIndex = String(index);
+        clone.setAttribute("aria-hidden", "true");
+        clone.querySelectorAll("a,button").forEach(el => el.setAttribute("tabindex", "-1"));
+        track.appendChild(clone);
+      });
+    }
+
+    const cards = Array.from(track.querySelectorAll(":scope > .project-stack-card"));
+    let tween = null;
+    let centers = [];
+    let activeCard = null;
+    let resizeTimer = 0;
+    let rebuildFrame = 0;
+
+    const setActive = card => {
+      if (!card || card === activeCard) return;
+      if (activeCard) {
+        const oldIndex = cards.indexOf(activeCard);
+        activeCard.classList.remove("is-active", "is-before", "is-after");
+        activeCard.style.zIndex = "1";
+        [cards[oldIndex - 1], cards[oldIndex + 1]].forEach(item => {
+          if (!item) return;
+          item.classList.remove("is-before", "is-after");
+          item.style.zIndex = "1";
+        });
+      }
+      const index = cards.indexOf(card);
+      card.classList.add("is-active");
+      card.style.zIndex = "50";
+      const before = cards[index - 1];
+      const after = cards[index + 1];
+      if (before) { before.classList.add("is-before"); before.style.zIndex = "8"; }
+      if (after) { after.classList.add("is-after"); after.style.zIndex = "8"; }
+      activeCard = card;
+
+      const projectIndex = Number(card.dataset.projectIndex || 0);
+      if (current) current.textContent = String(projectIndex + 1).padStart(2, "0");
+      if (progress) progress.style.width = `${((projectIndex + 1) / count) * 100}%`;
+    };
+
+    const nearestCard = x => {
+      const wanted = viewport.clientWidth / 2 - x;
+      let lo = 0, hi = centers.length - 1;
+      while (lo < hi) {
+        const mid = (lo + hi) >> 1;
+        if (centers[mid] < wanted) lo = mid + 1;
+        else hi = mid;
+      }
+      const right = lo;
+      const left = Math.max(0, right - 1);
+      return Math.abs(centers[left] - wanted) <= Math.abs(centers[right] - wanted)
+        ? cards[left] : cards[right];
+    };
+
+    const build = () => {
+      if (tween) {
+        tween.scrollTrigger?.kill();
+        tween.kill();
+        tween = null;
+      }
+
+      // Center the first card in each repeated set in the viewport.
+      const sidePadding = Math.max(24, (viewport.clientWidth - cards[0].getBoundingClientRect().width) / 2);
+      track.style.paddingLeft = `${sidePadding}px`;
+      track.style.paddingRight = `${sidePadding}px`;
+      centers = cards.map(card => card.offsetLeft + card.offsetWidth / 2);
+
+      const firstSetCenter = centers[0];
+      const secondSetCenter = centers[count];
+      const thirdSetCenter = centers[count * 2];
+      if (![firstSetCenter, secondSetCenter, thirdSetCenter].every(Number.isFinite)) return;
+
+      cards.forEach(card => {
+        card.classList.remove("is-active", "is-before", "is-after");
+        card.style.zIndex = "1";
+      });
+      const startX = viewport.clientWidth / 2 - secondSetCenter;
+      const endX = viewport.clientWidth / 2 - thirdSetCenter;
+      const travel = Math.abs(endX - startX);
+      if (!travel) return;
+
+      gsap.set(track, { x: startX });
+      activeCard = null;
+      setActive(cards[count]);
+
+      tween = gsap.to(track, {
+        x: endX,
+        ease: "none",
+        scrollTrigger: {
+          trigger: shell,
+          start: "top top+=72",
+          end: () => `+=${Math.max(travel * 1.35, window.innerHeight * 2)}`,
+          pin: true,
+          scrub: true,
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
+          onUpdate: self => {
+            const x = gsap.getProperty(track, "x");
+            setActive(nearestCard(Number(x) || 0));
+          }
+        }
+      });
+      ScrollTrigger.refresh();
+    };
+
+    // Wait for layout/fonts, then build once. No DOM measurements in scroll frames.
+    rebuildFrame = requestAnimationFrame(() => {
+      rebuildFrame = requestAnimationFrame(build);
+    });
+
+    const onResize = () => {
+      window.clearTimeout(resizeTimer);
+      resizeTimer = window.setTimeout(() => {
+        cancelAnimationFrame(rebuildFrame);
+        rebuildFrame = requestAnimationFrame(build);
+      }, 220);
+    };
+    window.addEventListener("resize", onResize, { passive: true });
+
+    return () => {
+      cancelAnimationFrame(rebuildFrame);
+      window.clearTimeout(resizeTimer);
+      window.removeEventListener("resize", onResize);
+      if (tween) {
+        tween.scrollTrigger?.kill();
+        tween.kill();
+      }
+      track.querySelectorAll("[data-loop-copy='true']").forEach(node => node.remove());
+      originals.forEach(card => {
+        card.classList.remove("is-active", "is-before", "is-after");
+        card.style.zIndex = "";
+        delete card.dataset.projectIndex;
+      });
+      track.style.removeProperty("padding-left");
+      track.style.removeProperty("padding-right");
+      gsap.set(track, { clearProps: "transform" });
+    };
   });
-});
+
+  // Mobile/tablet: native swipe scrolling avoids pinning and stays responsive.
+  mm.add("(max-width: 900px), (prefers-reduced-motion: reduce)", () => {
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      const center = viewport.getBoundingClientRect().left + viewport.clientWidth / 2;
+      let chosen = null;
+      let smallest = Infinity;
+      originals.forEach(card => {
+        const rect = card.getBoundingClientRect();
+        const distance = Math.abs(rect.left + rect.width / 2 - center);
+        if (distance < smallest) { smallest = distance; chosen = card; }
+      });
+      originals.forEach(card => card.classList.toggle("is-active", card === chosen));
+      if (chosen) {
+        const index = originals.indexOf(chosen);
+        if (current) current.textContent = String(index + 1).padStart(2, "0");
+        if (progress) progress.style.width = `${((index + 1) / count) * 100}%`;
+      }
+    };
+    const onScroll = () => { if (!frame) frame = requestAnimationFrame(update); };
+    viewport.addEventListener("scroll", onScroll, { passive: true });
+    update();
+    return () => {
+      viewport.removeEventListener("scroll", onScroll);
+      cancelAnimationFrame(frame);
+    };
+  });
+})();
+
 
 /* ================= BIG TEXT PARALLAX ================= */
 gsap.to(".big-text",{
@@ -2131,91 +2476,13 @@ const modalTags = document.getElementById("modalTags");
 const modalFeatures = document.getElementById("modalFeatures");
 const modalBox = document.getElementById("modalBox");
 
-/* ================= PROJECT EXPLORER ================= */
-const explorerCards = Array.from(document.querySelectorAll(".project-select-card"));
-const projectSearch = document.getElementById("projectSearch");
-const projectFilterButtons = Array.from(document.querySelectorAll(".project-filter"));
-const projectResultsCount = document.getElementById("projectResultsCount");
-const projectNoResults = document.getElementById("projectNoResults");
-const featuredImage = document.getElementById("featuredProjectImage");
-const featuredTitle = document.getElementById("featuredProjectTitle");
-const featuredDescription = document.getElementById("featuredProjectDescription");
-const featuredTags = document.getElementById("featuredProjectTags");
-const featuredGithub = document.getElementById("featuredGithubLink");
-const featuredDetailsBtn = document.getElementById("featuredDetailsBtn");
-let activeProjectFilter = "all";
-let projectDisplayLimit = 6;
-let selectedProjectCard = explorerCards.find(card => card.dataset.project === "vet") || explorerCards[0];
-function selectFeaturedProject(card, scrollToFeature = false) {
-  if (!card) return;
-  selectedProjectCard = card;
-  const key = card.dataset.project;
-  const data = projectData[key];
-  if (!data) return;
-  featuredTitle.textContent = data.title;
-  featuredDescription.textContent = data.description;
-  const img = card.querySelector("img");
-  if (img) {
-    featuredImage.style.opacity = "0.25";
-    const updateImage = () => { featuredImage.src = img.getAttribute("src"); featuredImage.alt = data.title + " preview"; featuredImage.style.opacity = "1"; };
-    featuredImage.onload = () => { featuredImage.style.opacity = "1"; };
-    updateImage();
-  }
-  featuredTags.replaceChildren(...data.tags.map(tag => { const span = document.createElement("span"); span.textContent = tag; return span; }));
-  if (data.github) { featuredGithub.href = data.github; featuredGithub.classList.remove("hidden"); }
-  else { featuredGithub.removeAttribute("href"); featuredGithub.classList.add("hidden"); }
-  explorerCards.forEach(item => { const active = item === card; item.classList.toggle("is-selected", active); item.setAttribute("aria-pressed", String(active)); });
-  featuredDetailsBtn.onclick = () => {
-    if (typeof modalTitle === "undefined" || !modalTitle) return;
-    modalTitle.textContent = data.title;
-    modalDescription.textContent = data.description;
-    modalTags.innerHTML = data.tags.map(t => `<span class="border border-white/15 px-3 py-2 text-xs tracking-wider text-accent rounded-full">${t}</span>`).join("");
-    modalFeatures.innerHTML = data.features.map(f => `<div>— ${f}</div>`).join("");
-    const githubAction = document.getElementById("modalGithubAction");
-    const liveAction = document.getElementById("modalLiveDemo");
-    if (data.github) { githubAction.href = data.github; githubAction.classList.remove("hidden"); } else { githubAction.removeAttribute("href"); githubAction.classList.add("hidden"); }
-    if (data.liveDemo) { liveAction.disabled = false; liveAction.classList.remove("disabled"); liveAction.onclick = () => window.open(data.liveDemo,"_blank","noopener,noreferrer"); } else { liveAction.disabled = true; liveAction.classList.add("disabled"); }
-    const projectModal = document.getElementById("projectModal");
-    projectModal?.classList.remove("hidden"); projectModal?.classList.add("flex"); document.body.style.overflow = "hidden";
-  };
-  if (scrollToFeature) {
-    // After selecting a card, bring the featured panel into view on desktop and mobile.
-    // Wait one frame so the updated title, tags, and image have been applied first.
-    window.requestAnimationFrame(() => {
-      window.setTimeout(() => {
-        document.getElementById("featuredProject")?.scrollIntoView({ behavior: "smooth", block: "start" });
-      }, 60);
-    });
-  }
-}
-function filterProjectCards() {
-  const query = (projectSearch?.value || "").trim().toLowerCase();
-  const matches = explorerCards.filter(card => {
-    const haystack = [card.innerText, card.dataset.tech, projectData[card.dataset.project]?.description, projectData[card.dataset.project]?.tags.join(" ")].join(" ").toLowerCase();
-    const matchesQuery = !query || haystack.includes(query);
-    const categories = (card.dataset.category || "").split(/\s+/);
-    const matchesFilter = activeProjectFilter === "all" || categories.includes(activeProjectFilter);
-    return matchesQuery && matchesFilter;
-  });
-  matches.forEach((card, index) => { card.hidden = index >= projectDisplayLimit; });
-  explorerCards.filter(card => !matches.includes(card)).forEach(card => { card.hidden = true; });
-  if (projectResultsCount) projectResultsCount.textContent = `${matches.length} project${matches.length === 1 ? "" : "s"}`;
-  projectNoResults?.classList.toggle("hidden", matches.length !== 0);
-  const loadMore = document.getElementById("loadMoreProjects");
-  if (loadMore) loadMore.classList.toggle("hidden", matches.length <= projectDisplayLimit);
-}
-explorerCards.forEach(card => card.addEventListener("click", () => selectFeaturedProject(card, true)));
-projectSearch?.addEventListener("input", () => { projectDisplayLimit = 6; filterProjectCards(); });
-document.getElementById("loadMoreProjects")?.addEventListener("click", () => { projectDisplayLimit += 6; filterProjectCards(); });
-projectFilterButtons.forEach(button => button.addEventListener("click", () => {
-  activeProjectFilter = button.dataset.filter;
-  projectDisplayLimit = 6;
-  projectFilterButtons.forEach(item => { const active = item === button; item.classList.toggle("active", active); item.setAttribute("aria-pressed", String(active)); });
-  filterProjectCards();
-}));
-selectFeaturedProject(selectedProjectCard);
-filterProjectCards();
-
+/* ================= PROJECT CASE STUDIES ================= */
+document.querySelectorAll("#projects .case-study-visual img").forEach((img) => {
+  img.addEventListener("error", () => {
+    img.style.display = "none";
+    img.parentElement.classList.add("image-missing");
+  }, { once: true });
+});
 
 document.querySelectorAll(".project-card:not(.project-select-card)").forEach(card=>{
   card.addEventListener("click", ()=>{

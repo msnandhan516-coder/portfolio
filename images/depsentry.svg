@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" fill="none">
+  <defs>
+    <linearGradient id="background" x1="62" y1="34" x2="1097" y2="664" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#101D39"/>
+      <stop offset="1" stop-color="#101126"/>
+    </linearGradient>
+    <linearGradient id="glow" x1="927" y1="71" x2="540" y2="636" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#635BFF" stop-opacity=".36"/>
+      <stop offset="1" stop-color="#00D9C5" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="score" x1="799" y1="275" x2="936" y2="396" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#21E6C1"/>
+      <stop offset="1" stop-color="#41A9FF"/>
+    </linearGradient>
+    <filter id="shadow" x="143" y="106" width="936" height="528" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse">
+      <feGaussianBlur stdDeviation="17"/>
+    </filter>
+  </defs>
+  <rect width="1200" height="675" fill="url(#background)"/>
+  <rect width="1200" height="675" fill="url(#glow)"/>
+  <circle cx="1018" cy="111" r="205" fill="#6F67FF" fill-opacity=".08"/>
+  <circle cx="1018" cy="111" r="144" stroke="#9D98FF" stroke-opacity=".13"/>
+  <circle cx="1018" cy="111" r="101" stroke="#9D98FF" stroke-opacity=".11"/>
+  <path d="M0 548C196 480 262 618 441 594C601 572 642 473 812 489C967 504 1053 601 1200 534V675H0V548Z" fill="#0B1020" fill-opacity=".55"/>
+  <rect x="176" y="141" width="848" height="445" rx="23" fill="#000" fill-opacity=".32" filter="url(#shadow)"/>
+  <rect x="164" y="126" width="872" height="450" rx="18" fill="#0C1325" stroke="#334568"/>
+  <path d="M182 126H1018C1027.94 126 1036 134.059 1036 144V184H164V144C164 134.059 172.059 126 182 126Z" fill="#141E35"/>
+  <circle cx="191" cy="155" r="5" fill="#FF7187"/>
+  <circle cx="209" cy="155" r="5" fill="#F6C45C"/>
+  <circle cx="227" cy="155" r="5" fill="#2DD4A7"/>
+  <rect x="280" y="145" width="144" height="20" rx="10" fill="#202C47"/>
+  <path d="M300 151H404" stroke="#8593B3" stroke-opacity=".52" stroke-width="4" stroke-linecap="round"/>
+  <rect x="184" y="205" width="184" height="350" rx="12" fill="#111B30" stroke="#263654"/>
+  <path d="M207 236L219 224L231 236L219 248L207 236Z" fill="#23DFC1"/>
+  <text x="243" y="241" fill="#F1F5FF" font-family="Arial, sans-serif" font-size="18" font-weight="700">DepSentry</text>
+  <text x="207" y="282" fill="#7484A3" font-family="Arial, sans-serif" font-size="10" font-weight="700" letter-spacing="2">WORKSPACE</text>
+  <rect x="199" y="298" width="154" height="38" rx="8" fill="#173246"/>
+  <rect x="199" y="298" width="3" height="38" rx="1.5" fill="#26E0C2"/>
+  <circle cx="216" cy="317" r="5" fill="#26E0C2"/>
+  <text x="231" y="321" fill="#E8F7FA" font-family="Arial, sans-serif" font-size="12" font-weight="600">Overview</text>
+  <circle cx="216" cy="361" r="5" fill="#7787A6"/>
+  <text x="231" y="365" fill="#9BA9C2" font-family="Arial, sans-serif" font-size="12">Dependencies</text>
+  <circle cx="216" cy="405" r="5" fill="#7787A6"/>
+  <text x="231" y="409" fill="#9BA9C2" font-family="Arial, sans-serif" font-size="12">Vulnerability scan</text>
+  <circle cx="216" cy="449" r="5" fill="#7787A6"/>
+  <text x="231" y="453" fill="#9BA9C2" font-family="Arial, sans-serif" font-size="12">Policy checks</text>
+  <path d="M199 485H353" stroke="#293650"/>
+  <circle cx="216" cy="513" r="5" fill="#7787A6"/>
+  <text x="231" y="517" fill="#9BA9C2" font-family="Arial, sans-serif" font-size="12">Settings</text>
+  <text x="397" y="225" fill="#8291AD" font-family="Arial, sans-serif" font-size="11" font-weight="700" letter-spacing="2">PROJECT HEALTH</text>
+  <text x="397" y="258" fill="#F1F5FF" font-family="Arial, sans-serif" font-size="24" font-weight="700">Acme Web Platform</text>
+  <rect x="824" y="215" width="176" height="30" rx="15" fill="#123B3D" stroke="#1D6A62"/>
+  <circle cx="842" cy="230" r="4" fill="#35E0A9"/>
+  <text x="855" y="234" fill="#77E8C6" font-family="Arial, sans-serif" font-size="10" font-weight="700" letter-spacing=".8">SCAN COMPLETE</text>
+  <rect x="397" y="280" width="344" height="190" rx="13" fill="#121D33" stroke="#293956"/>
+  <text x="419" y="309" fill="#A4B0C7" font-family="Arial, sans-serif" font-size="12" font-weight="600">Risk overview</text>
+  <circle cx="490" cy="381" r="48" stroke="#26344D" stroke-width="10"/>
+  <path d="M456 343A48 48 0 1 1 455 418" stroke="url(#score)" stroke-width="10" stroke-linecap="round"/>
+  <text x="490" y="378" text-anchor="middle" fill="#F3F7FF" font-family="Arial, sans-serif" font-size="28" font-weight="700">82</text>
+  <text x="490" y="397" text-anchor="middle" fill="#7E8DA9" font-family="Arial, sans-serif" font-size="9" font-weight="700" letter-spacing="1.3">OUT OF 100</text>
+  <text x="562" y="354" fill="#EAF0FB" font-family="Arial, sans-serif" font-size="14" font-weight="700">Good standing</text>
+  <text x="562" y="376" fill="#8291AD" font-family="Arial, sans-serif" font-size="11">Dependencies look healthy</text>
+  <rect x="562" y="397" width="146" height="6" rx="3" fill="#27344A"/>
+  <rect x="562" y="397" width="119" height="6" rx="3" fill="#25D7B5"/>
+  <text x="562" y="426" fill="#25D7B5" font-family="Arial, sans-serif" font-size="10" font-weight="700">82% policy score</text>
+  <rect x="757" y="280" width="243" height="190" rx="13" fill="#121D33" stroke="#293956"/>
+  <text x="778" y="309" fill="#A4B0C7" font-family="Arial, sans-serif" font-size="12" font-weight="600">Findings</text>
+  <circle cx="791" cy="344" r="10" fill="#462F39"/>
+  <path d="M791 338V345M791 350V350.5" stroke="#FF8791" stroke-width="2" stroke-linecap="round"/>
+  <text x="810" y="348" fill="#EAF0FB" font-family="Arial, sans-serif" font-size="12" font-weight="600">Vulnerabilities</text>
+  <text x="976" y="348" text-anchor="end" fill="#FF9AA1" font-family="Arial, sans-serif" font-size="13" font-weight="700">02</text>
+  <path d="M778 365H979" stroke="#293650"/>
+  <circle cx="791" cy="387" r="10" fill="#443A29"/>
+  <path d="M791 381V388M791 393V393.5" stroke="#F2C66E" stroke-width="2" stroke-linecap="round"/>
+  <text x="810" y="391" fill="#EAF0FB" font-family="Arial, sans-serif" font-size="12" font-weight="600">License review</text>
+  <text x="976" y="391" text-anchor="end" fill="#F2C66E" font-family="Arial, sans-serif" font-size="13" font-weight="700">04</text>
+  <path d="M778 408H979" stroke="#293650"/>
+  <circle cx="791" cy="430" r="10" fill="#183B39"/>
+  <path d="M787 430L790 433L796 426" stroke="#50D9B3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="810" y="434" fill="#EAF0FB" font-family="Arial, sans-serif" font-size="12" font-weight="600">Healthy packages</text>
+  <text x="976" y="434" text-anchor="end" fill="#50D9B3" font-family="Arial, sans-serif" font-size="13" font-weight="700">38</text>
+  <rect x="397" y="486" width="603" height="54" rx="11" fill="#121D33" stroke="#293956"/>
+  <circle cx="420" cy="513" r="8" fill="#1B4545"/>
+  <path d="M416 513L419 516L425 509" stroke="#4EE2C0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="438" y="510" fill="#EAF0FB" font-family="Arial, sans-serif" font-size="11" font-weight="600">Dependency graph analyzed</text>
+  <text x="438" y="527" fill="#71819D" font-family="Arial, sans-serif" font-size="10">84 packages · 12 direct · 72 transitive</text>
+  <text x="976" y="517" text-anchor="end" fill="#7788A5" font-family="Arial, sans-serif" font-size="10">just now</text>
+</svg>
